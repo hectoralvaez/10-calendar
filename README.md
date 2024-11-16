@@ -479,6 +479,44 @@ useEffect(() => {
 <br />
 
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
+
+---
+## 📅 🖌️ 347. Inicio de proyecto - MERN-Calendar
+1. Instalar el proyecto con Vite
+
+```
+yarn create vite
+```
+>También se podría hacer con Node Package Manager
+>```
+>npm create vite
+>```
+
+2. Instalar yarn
+```
+yarn
+```
+
+3. Arrancar en modo desarrollo:
+```
+yarn dev
+```
+
+4. Instalar React Router DOM   
+['React Router'](https://reactrouter.com)
+
+```
+yarn add react-router-dom@6
+```
+5. Instalar Bootstrap   
+```
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+```
+
+6. Hacer limpieza de lo que no se usa y renombar archivos
+
+
+---
 ## 📅 🖌️ 345. Temas puntuales de la sección
 
 ### ¿Qué veremos en esta sección?
