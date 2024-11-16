@@ -481,6 +481,19 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 349. LoginScreen y Navbar
+
+Arrancamos la maqueta de "LoginPage.jsx" y el "NavBar.jsx" con sus estilos (unos propios de Fernando, otros de Bootstrap).
+
+También se importa font-awesome para el uso de iconos.
+
+Iniciamos la maqueta de "CalendarPage.jsx" con el "NavBar"
+```javascript
+<>
+    <NavBar />
+</>
+```
+---
 ## 📅 🖌️ 348. Rutas de la aplicación
 Creamos las páginas públicas (en la carpeta 'calendar') y las privadas (en 'auth')
 
