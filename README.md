@@ -481,6 +481,28 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 350. React Big Calendar
+
+Instalamos [React Big Calendar](https://www.npmjs.com/package/react-big-calendar) con yarn:
+```
+yarn add react-big-calendar
+```
+
+>En la web de Node Package Manager, evidentemente la recomiendan con `npm`:
+>```
+>npm i react-big-calendar
+>```
+
+De las diferentes opciones que ofrece la librería React Big Calendar para manejar el formato de la fecha, es decir, los "localizadores" (Moment.js, Globalize.js, date-fns, Day.js), Fernando se decanta por "date-fns"
+
+Hacemos la instalación con yarn
+```
+yarn add date-fns
+```
+
+
+
+---
 ## 📅 🖌️ 349. LoginScreen y Navbar
 
 Arrancamos la maqueta de "LoginPage.jsx" y el "NavBar.jsx" con sus estilos (unos propios de Fernando, otros de Bootstrap).
