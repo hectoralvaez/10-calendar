@@ -478,6 +478,23 @@ useEffect(() => {
 
 <br />
 
+# 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
+
+
+# 🆕 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
+
+<br />
+
+# 🏁 SECCIÓN 21: 🧪 Pruebas con Redux, Firebase, Firestore y autenticación
+
+TODO: Hacer esta sección.
+
+# 🆕 SECCIÓN 21: 🧪 Pruebas con Redux, Firebase, Firestore y autenticación
+
+---
+
+<br />
+
 # 🏁 SECCIÓN 20: ✏️📖♻️🗑️ JournalApp - Redux - CRUD en Firestore y subida de archivos
 
 ---
