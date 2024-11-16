@@ -481,6 +481,32 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 348. Rutas de la aplicación
+Creamos las páginas públicas (en la carpeta 'calendar') y las privadas (en 'auth')
+
+En CalendarApp.jsx llamamos a `<AppRouter>` dentro del `BrowserRouter` que se encargará de lanzar el component según estemos o no logados:
+```javascript
+<BrowserRouter>
+    <AppRouter />
+</BrowserRouter>
+```
+
+En AppRouter.jsx controlamos si el usuario está o no logado para redirigirlo a login o a las páginas del calendario.
+```javascript
+<Routes>
+    {
+        (authStatus === 'not-authenticated')
+        ? <Route path="/auth/*" element={ <LoginPage /> } />
+        : <Route path="/*" element={ <CalendarPage /> } />
+    }
+    // A esta ruta en principio no tendría que llegar ningún usuario, pero es un "Fail-Safe", una ruta a prueba de fallos
+    <Route path="/*" element={ <Navigate to="/auth/login" /> } />
+</Routes>
+```
+
+
+
+---
 ## 📅 🖌️ 347. Inicio de proyecto - MERN-Calendar
 1. Instalar el proyecto con Vite
 
