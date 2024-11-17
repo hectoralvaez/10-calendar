@@ -481,6 +481,38 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## ⭐ 📅 🖌️ 351. Configuraciones adicionales al calendario
+
+En esta classe se ha:
+1. Optimizado y separado el código de `CalendarPage`
+2. Añadido el `getMessagesES` con los textos traducidos
+3. Añadido `eventPropGetter` que dispara la función `eventStyleGetter`
+
+
+```javascript
+const eventStyleGetter = ( event, start, end, isSelected ) => {
+console.log({event, start, end, isSelected});
+
+const  style = {
+    backgroundColor: '#0095ff',
+    borderRadius: '0px',
+    opacity: 0.8,
+    color: '#fff'
+}
+
+return { style }
+
+}
+```
+
+```javascript
+<Calendar
+    ...
+    eventPropGetter={ eventStyleGetter }
+/>
+```
+
+---
 ## 📅 🖌️ 350. React Big Calendar
 
 Instalamos [React Big Calendar](https://www.npmjs.com/package/react-big-calendar) con yarn:
