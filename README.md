@@ -481,6 +481,17 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 354. Creando un modal sobre el calendario
+
+Instalamos [react-modal](https://www.npmjs.com/package/react-modal) 
+```
+yarn add react-modal
+```
+
+Añadimos el `CalendarModal` dentro de <Calendar> en la página `CalendarPage.jsx`
+
+
+---
 ## ⭐ ⭐ 📅 🖌️ 353. Escuchar eventos del calendario
 
 Añadimos las funciones:
