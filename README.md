@@ -481,6 +481,42 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 352. Personalizar el cuadro de evento
+
+Añadimos nuestro propio `CalendarEvent` que nos permitirá mostrar la información deseada con su propia estrutura:
+
+`CalendarEvent.jsx`:
+
+```javascript
+export const CalendarEvent = ({ event }) => {
+    const {title, user } = event;
+    return (
+    <>
+        <strong>{ title }</strong> - { user.name }
+    </>
+  )
+}
+```
+
+En nuestra página `CalendarPage` le pasamos al componente `Calendar` el atributo `components` referenciando "event" al recién creado "CalendarEvent":
+```javascript
+<Calendar
+    culture='es'
+    localizer={ localizer }
+    events={ events }
+    startAccessor="start"
+    endAccessor="end"
+    style={{ height: 'calc( 100vh - 90px)' }}
+    messages={ getMessagesES() }
+    eventPropGetter={ eventStyleGetter }
+    components={{
+        event: CalendarEvent
+    }}
+/>
+```
+
+
+---
 ## ⭐ 📅 🖌️ 351. Configuraciones adicionales al calendario
 
 En esta classe se ha:
