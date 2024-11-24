@@ -481,6 +481,53 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## ⭐ ⭐ 📅 🖌️ 353. Escuchar eventos del calendario
+
+Añadimos las funciones:
+```javascript
+const onDoubleClick = ( event ) => {
+    console.log({ doubleClick: event});
+}
+
+const onSelect = ( event ) => {
+    console.log({ click: event});
+}
+
+const onViewChanged = ( event ) => {
+    localStorage.setItem('lastView', event);
+    setLastView( event );
+}
+```
+
+Se añaden en el component `Calendar` asignándolas a sus eventos definidos (`onDoubleClickEvent`, `onSelectEvent`, `onView`):
+
+```javascript
+<Calendar
+    onDoubleClickEvent={ onDoubleClick }
+    onSelectEvent={ onSelect }
+    onView={ onViewChanged }
+/>
+```
+
+Empezamos por la función `onViewChanged`:
+
+
+Trabajamos con `useState` para almacenar en local el valor de la vista seleccionada. En caso de no tener una vista definida en `lastView`, asignamos por defecto 'month':
+
+```javascript
+const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
+```
+
+En el component 'Calendar', definimos como vista por defecto el valor que se le asigna con el useState a "lastView".
+
+```javascript
+<Calendar
+defaultView= { lastView }
+/>
+```
+
+
+---
 ## 📅 🖌️ 352. Personalizar el cuadro de evento
 
 Añadimos nuestro propio `CalendarEvent` que nos permitirá mostrar la información deseada con su propia estrutura:
