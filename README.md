@@ -481,6 +481,61 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 355. Contenido del Modal
+
+Creamos el formulario modal donde asignaremos las fechas, título y notas.
+
+Instalamos [react-datepicker](https://www.npmjs.com/package/react-datepicker) 
+```
+yarn add react-datepicker
+```
+
+Hacemos la gestión del formulario sin usar el useForm.
+
+Usamos un useState para controlar el estado del formulario:
+```javascript
+const [formValues, setFormValues] = useState({
+    title: "Héctor",
+    notes: "Penalva",
+    start: new Date(),
+    end: addHours(new Date(), 2),
+});
+```
+
+
+Para controlar si hay cambios en los inputs "titulo" o "nota":
+```javascript
+const onInputChange = ({ target }) => {
+    setFormValues({
+        ...formValues,
+        [target.name]: target.value,
+    });
+};
+```
+
+Para controlar los cambios de fecha:
+```javascript
+const onDateChanged = (event, changing) => {
+    setFormValues({
+        ...formValues,
+        [changing]: event,
+    });
+};
+```
+
+El `DatePicker` de `react-datepicker`:
+```javascript
+<DatePicker
+    minDate={ formValues.start }
+    selected={ formValues.end }
+    onChange={ (event) => onDateChanged(event, 'end') }
+    className="form-control"
+    dateFormat="Pp"
+/>
+```
+
+
+---
 ## 📅 🖌️ 354. Creando un modal sobre el calendario
 
 Instalamos [react-modal](https://www.npmjs.com/package/react-modal) 
@@ -2123,7 +2178,7 @@ const onSubmit = ( event ) => {
 <form onSubmit={ onSubmit }>
 ```
 
-Se añaden los valores `name`, `value` y `onChange` a los imputs.
+Se añaden los valores `name`, `value` y `onChange` a los inputs.
 
 Ejemplo del input "Nombre completo":
 ```javascript
