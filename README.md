@@ -481,6 +481,16 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 356. Datepicker en español
+Para añadir las traducciones al CalendarModal:
+
+```javascript
+import DatePicker, { registerLocale } from "react-datepicker";
+import es from "date-fns/locale/es";
+registerLocale("es", es );
+```
+
+---
 ## 📅 🖌️ 355. Contenido del Modal
 
 Creamos el formulario modal donde asignaremos las fechas, título y notas.
