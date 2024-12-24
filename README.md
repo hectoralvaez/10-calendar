@@ -481,7 +481,76 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
-## 📅 🖌️ 358. Validaciones del formulario
+## ⭐⭐ 📅 🖌️ 359. Instalación y configuración de Redux
+
+Es momento de empezar a pensar en un store global.
+
+Se podría hacer con `useContext`, pero con Redux Toolkit (RTK) facilita mucho el uso de este store en React.
+
+```
+yarn add @reduxjs/toolkit
+yarn add react-redux
+```
+
+Arrancamos el store con Redux Toolkit en `store/store.js`
+
+```javascript
+import { configureStore } from "@reduxjs/toolkit";
+import { uiSlice } from "./ui/uiSlice";
+
+export const store = configureStore({
+    reducer: {
+        ui: uiSlice.reducer
+    }
+
+});
+```
+
+Creamos nuestro reducer `uiSlice` en `store/ui/uiSlice.js` y empezamos controlando si el modal está abierto o no.
+
+```javascript
+import { createSlice } from '@reduxjs/toolkit';
+
+export const uiSlice = createSlice({
+    name: 'ui',
+    initialState: {
+        isDateModalOpen: false,
+    },
+    reducers: {
+        onOpenDateModal: (state) => {
+            state.isDateModalOpen = true;
+        },
+        onCloseDateModal: (state) => {
+            state.isDateModalOpen = false;
+        },
+    }
+});
+
+// Action creators are generated for each case reducer function
+export const { onOpenDateModal, onCloseDateModal } = uiSlice.actions;
+```
+
+Finalmente añadimos el store en `CalendarApp.jsx` con el <Provider /> de `react-redux`.
+```javascript
+import { BrowserRouter } from "react-router-dom"
+import { AppRouter } from "./router"
+import { Provider } from "react-redux"
+
+import { store } from "./store"
+
+export const CalendarApp = () => {
+  return (
+    <Provider store={ store }>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </Provider>
+  )
+}
+```
+
+---
+## ⭐ 📅 🖌️ 358. Validaciones del formulario
 
 Con `useMemo` controlamos cuando hay cambios en el título (`formValues.title`) o se envía el formulario (`formSubmitted`) y asignamos el valor `is-invalid` en caso de que el título no sea válido para aplicar esa class al input
 
