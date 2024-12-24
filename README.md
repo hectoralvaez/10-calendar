@@ -481,6 +481,33 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 357. Obtener la información del formulario del evento
+
+Validamos que las fechas y el título sean correctos a la hora de hacer el envío del formulario antes de obtener la información:
+
+```javascript
+const onSubmit = (event) => {
+    event.preventDefault();
+    const difference = differenceInSeconds(formValues.end, formValues.start);
+
+    if ( isNaN( difference ) || difference <= 0 ) {
+        console.log('Error en las fechas');
+        return;
+    }
+
+    if ( formValues.title.length <= 0 ) {
+        console.log('Título obligatorio');
+        return;
+    }
+    console.log(formValues);
+};
+```
+
+Cada evento tendrá un ID, pero vendrá dado desde Back.
+
+
+
+---
 ## 📅 🖌️ 356. Datepicker en español
 Para añadir las traducciones al CalendarModal:
 
