@@ -394,7 +394,7 @@ Aquí el ejemplo concreto con [Vite.js](https://github.com/mui/material-ui/tree/
 
 # RECURSOS
 - [Animate.css](https://animate.style/) permite implementar varias animaciones de manera fácil.
-- [sweetAlert2](https://sweetalert2.github.io/) librería uqe permite implementar mensajes de alerta con un duseño más trabajado.
+- [sweetAlert2](https://sweetalert2.github.io/) librería que permite implementar mensajes de alerta con un diseño más trabajado.
 
 - [cloudinary](https://cloudinary.com/) Backend para gestión de imágenes. [Documentación](https://cloudinary.com/documentation/image_upload_api_reference#banner)
 
@@ -479,6 +479,41 @@ useEffect(() => {
 <br />
 
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
+
+---
+## 📅 🖌️ 358. Validaciones del formulario
+
+Con `useMemo` controlamos cuando hay cambios en el título (`formValues.title`) o se envía el formulario (`formSubmitted`) y asignamos el valor `is-invalid` en caso de que el título no sea válido para aplicar esa class al input
+
+```javascript
+const titleClass = useMemo(() => {
+    if ( !formSubmitted ) return '';
+
+    return ( formValues.title.length > 0 ) 
+        ? ''
+        : 'is-invalid';
+}, [ formValues.title, formSubmitted ]);
+```
+
+Aplicando la class al input:
+```javascript
+<input
+    ...
+    className={`form-control ${titleClass}`}
+    ...
+/>
+```
+
+También instalamos `sweetalert2` para las alertas al usuario:
+```
+yarn add sweetalert2
+```
+
+```javascript
+Swal.fire('Fechas incorrectas', 'Revisar las fechas ingresadas', 'error');
+```
+
+
 
 ---
 ## 📅 🖌️ 357. Obtener la información del formulario del evento
