@@ -481,7 +481,12 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
-##  ⭐⭐ 📅 🖌️ 361. CalendarSlice
+## 📅 🖌️ 362. Cargar un evento en el modal
+
+Implementamos la carga del evento en el modal mediante `onSetActiveEvent` y `setActiveEvent`
+
+---
+## ⭐⭐ 📅 🖌️ 361. CalendarSlice
 ```diff
 📂 hooks
 +   📄 useCalendarStore.js
