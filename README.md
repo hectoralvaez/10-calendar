@@ -481,6 +481,77 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+##  ⭐⭐ 📅 🖌️ 361. CalendarSlice
+```diff
+📂 hooks
++   📄 useCalendarStore.js
+📂 store
+    📂 calendar
++       📄 CalendarSlice.js
+    📁 ui
+```
+
+En esta clase arrancamos el `CalendarSlice.js` y el hook `useCalendarStore.js`
+
+
+En `calendarSlice` definimos en el estado inicial (`initialState`) los eventos `tempEvent` y `activeEvent` a `null`
+
+Definición del evento "temporal". Nos lo traemos de `CalendarPage.jsx` donde estaba "hardcodeado" como `events`, ahora lo llamamos `tempEvent` y lo va a recibir el estado inicial de `calendarSlice`.
+
+```javascript
+const tempEvent = {
+    title: 'Cumpleaños',
+  notes: 'Comprar pastel',
+  start: new Date(),
+  end: addHours( new Date(), 2),
+  bgColor: '#fafafa',
+  user: {
+      _id: '1',
+    name: 'Héctor'
+  }
+}
+```
+
+```javascript
+export const calendarSlice = createSlice({
+    name: 'calendar',
+    initialState: {
+        events: [
+            tempEvent
+        ],
+        activeEvent: null
+    },
+    reducers: {
+        increment: (state, /* action */ ) => {
+            state.counter += 1;
+        },
+    }
+});
+```
+
+
+En `CalendarPage.jsx` ya podemos llamar a los "events" directamente del hook `useCalendarStore`
+```javascript
+const { events } = useCalendarStore();
+```
+
+
+En el store importamos el `calendarSlice.js` y añadimos el nuevo reducer:
+
+```diff
+import { configureStore } from "@reduxjs/toolkit";
+-import { uiSlice } from "./";
++import { calendarSlice, uiSlice } from "./";
+
+export const store = configureStore({
+    reducer: {
++       calendar: calendarSlice.reducer,
+        ui: uiSlice.reducer
+    }
+});
+```
+
+---
 ## ⭐⭐⭐ 📅 🖌️ 360. Mostrar y ocultar modal en base al Store
 
 Trabajaremos el store con hooks personalizados.
