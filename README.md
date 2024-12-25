@@ -481,6 +481,41 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## ⭐⭐⭐ 📅 🖌️ 360. Mostrar y ocultar modal en base al Store
+
+Trabajaremos el store con hooks personalizados.
+
+
+En `CalendarModal.jsx`, para controlar el estado del modal (si está abierto o cerrado) dejamos de usar el `useState` con `isOpen` para controlarlo mediante el store `useUiStore` con `isDateModalOpen`:
+
+```diff
+- const [isOpen, setIsOpen] = useState(true);
++ const { isDateModalOpen } = useUiStore();
+```
+
+Ya no necesitaremos cambiar el valor de `isOpen` con `setIsOpen` en la función `onCloseModal`, usamos `closeDateModal`
+
+```diff
+const onCloseModal = () => {
+    console.log("cerrando modal");
+-   setIsOpen(false);
++   closeDateModal();
+};
+```
+
+Y en el modal también pasamos de controlar con `useState` a controlar con el store `useUiStore` (`isDateModalOpen`)
+```diff
+<Modal
+-    isOpen={isOpen}
++    isOpen={isDateModalOpen}
+    onRequestClose={onCloseModal}
+    style={customStyles}
+    className="modal"
+    overlayClassName="modal-fondo"
+    closeTimeoutMS={200}
+>
+```
+---
 ## ⭐⭐ 📅 🖌️ 359. Instalación y configuración de Redux
 
 Es momento de empezar a pensar en un store global.
