@@ -481,6 +481,50 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## ⭐⭐ 📅 🖌️ 365. Editar el evento activo
+
+Añadimos `onUpdateEvent` en el store del calendar `calendarSlice.js`
+ 
+```javascript
+onUpdateEvent: (state, { payload } ) => {
+    state.events = state.events.map( event => {
+        if ( event._id === payload._id ) {
+            // Si el evento es el que estamos actualizando, retornamos el payload
+            return payload;
+        }
+        // Si no, retornamos el evento tal cual está
+        return event;
+    });
+},
+```
+
+
+En nuestro hook `useCalendarStore.js` añadimos el dispatch de `onUpdateEvent` dentro de la función `startSavingEvent`.
+
+
+```diff
+const startSavingEvent = async( calendarEvent ) => {
+    // TODO: Aquí se haría la petición al backend
+    
+    // Todo sale bien
+    if( calendarEvent._id ){
+        // Actualizamos el evento
++       dispatch( onUpdateEvent( { ...calendarEvent } ) );
+    } else {
+        // Agregamos un nuevo evento
+        dispatch( onAddNewEvent({ 
+            ...calendarEvent, 
+            _id: new Date().getTime() // Este ID lo recibiremos del backend
+        }) );
+    }
+}
+```
+
+
+
+
+
+---
 ## ⭐ 📅 🖌️ 364. Añadir un nuevo evento
 
 Empezamos creando un nuevo reducer en `calendarSlice.js`
