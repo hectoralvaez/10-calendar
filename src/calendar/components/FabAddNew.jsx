@@ -23,7 +23,7 @@ export const FabAddNew = () => {
 
     return (
             <button
-                className="btn btn-primary fab" 
+                className="btn btn-primary fab fab--add" 
                 onClick={ handleOpenModal }
             >
                 <i className="fas fa-plus"></i>

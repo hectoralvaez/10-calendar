@@ -41,9 +41,17 @@ export const calendarSlice = createSlice({
                 return event;
             });
         },
+        onDeleteEvent: (state) => {
+            // Si hay un evento activo en el estado actual (con esto evitamos el error de borrar un evento que no existe)
+            if ( state.activeEvent ) { 
+                // Eliminamos el evento activo del estado
+                state.events = state.events.filter( event => event._id !== state.activeEvent._id ); 
+                state.activeEvent = null;
+            }
+        }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onAddNewEvent, onSetActiveEvent, onUpdateEvent } = calendarSlice.actions;
+export const { onAddNewEvent, onDeleteEvent, onSetActiveEvent, onUpdateEvent } = calendarSlice.actions;

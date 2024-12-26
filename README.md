@@ -481,6 +481,76 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## ⭐⭐ 📅 🖌️ 366. Eliminar evento
+
+Creamos el reducer `onDeleteEvent` en el `calendarSlice.js`
+
+```javascript
+onDeleteEvent: (state) => {
+    // Si hay un evento activo en el estado actual (con esto evitamos el error de borrar un evento que no existe)
+    if ( state.activeEvent ) { 
+        // Eliminamos el evento activo filtrando todos los eventos menos el activo
+        state.events = state.events.filter( event => event._id !== state.activeEvent._id ); 
+        state.activeEvent = null;
+    }
+}
+```
+
+En `useCalendarStore` añadimos `startDeletingEvent`
+```javascript
+const startDeletingEvent = () => {
+    dispatch( onDeleteEvent() );
+}
+```
+
+y hacemos el return del nuevo método y una nueva propiedad que nos permitirá controlar si se muestra o no el botón de "eliminar"
+
+```diff
+return {
+    // Propiedades
+    activeEvent,
+    events,
++   hasEventSelected: !!activeEvent, // Si activeEvent es null, entonces no hay evento seleccionado y regresamos false
+
+    // Métodos
++   startDeletingEvent,
+    setActiveEvent,
+    startSavingEvent,
+}
+```
+
+Creamos el component Floating Action Button `FabDelete`:
+
+```javascript
+import { useCalendarStore } from "../../hooks"
+
+export const FabDelete = () => {
+
+    const { startDeletingEvent, hasEventSelected } = useCalendarStore();
+
+    const handleDelete = () => {
+        startDeletingEvent();
+    };
+
+    return (
+            <button
+                className="btn btn-danger fab fab--danger" 
+                onClick={ handleDelete }
+                style={{ 
+                    display: hasEventSelected ? 'block' : 'none'
+                }}
+            >
+                <i className="fas fa-trash-alt"></i>
+            </button>
+        )
+}
+```
+
+
+
+
+
+---
 ## ⭐⭐ 📅 🖌️ 365. Editar el evento activo
 
 Añadimos `onUpdateEvent` en el store del calendar `calendarSlice.js`

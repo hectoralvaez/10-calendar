@@ -48,5 +48,11 @@
     font-size: 30px;
     padding: 25px;
     position: fixed;
+}
+
+.fab--add {
     right: 25px;
+}
+.fab--danger {
+    left: 25px;
 }
