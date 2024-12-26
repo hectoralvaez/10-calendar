@@ -481,6 +481,29 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 367. Redux - serializableCheck
+
+Hasta ahora no estaba dando un error de "valor no serializable" que en Redux generalmente ocurre cuando intentas almacenar un valor que no puede ser serializado en el estado de Redux.
+
+Redux Toolkit, por defecto, incluye una verificación de serializabilidad (serializableCheck) para asegurarse de que todos los valores en el estado de Redux sean serializables. 
+
+Esto es importante porque Redux depende de la capacidad de serializar y deserializar el estado para varias funcionalidades, como la depuración y la persistencia del estado.
+
+En nuestro caso, el error "valor no serializable" venía dado por un objetos de fecha (Date).
+
+Los objetos de fecha (Date) no son serializables por defecto. Si estás almacenando objetos de fecha en el estado de Redux, esto puede causar el error.
+
+Otros tipos de datos no serializables, como funciones, instancias de clases personalizadas, o referencias a objetos DOM, también pueden causar este error.
+
+Para evitar el error de "valor no serializable" que nos daba en el árbol de estados al pasar la Date al `_id`, deshabilitamos la opción `serializableCheck` en la configuración del middleware en el "store" configurándola como `false`
+
+```javascript
+middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+})
+```
+
+---
 ## ⭐⭐ 📅 🖌️ 366. Eliminar evento
 
 Creamos el reducer `onDeleteEvent` en el `calendarSlice.js`
