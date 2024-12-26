@@ -481,6 +481,55 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
+## 📅 🖌️ 363. Preparar la creación de un nuevo evento
+
+
+En esta clase añadimos y preparamos un Floating Action Button para crear un nuevo evento.
+
+```diff
+📂 calendar
+    📂 components
++       📄 FabAddNew.jsx
+```
+
+```javascript
+import { addHours } from "date-fns";
+import { useCalendarStore, useUiStore } from "../../hooks"
+
+export const FabAddNew = () => {
+
+    const { openDateModal } =  useUiStore();
+    const { setActiveEvent } = useCalendarStore();
+
+    const handleOpenModal = () => {
+        setActiveEvent({
+            title: '',
+            notes: '',
+            start: new Date(),
+            end: addHours( new Date(), 2),
+            bgColor: '#fafafa',
+            user: {
+                _id: '1',
+                name: 'Héctor'
+            }
+        });
+        openDateModal();
+    };
+
+    return (
+            <button
+                className="btn btn-primary fab" 
+                onClick={ handleOpenModal }
+            >
+                <i className="fas fa-plus"></i>
+            </button>
+        )
+}
+```
+
+
+
+---
 ## 📅 🖌️ 362. Cargar un evento en el modal
 
 Implementamos la carga del evento en el modal mediante `onSetActiveEvent` y `setActiveEvent`
