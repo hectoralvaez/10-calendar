@@ -481,8 +481,84 @@ useEffect(() => {
 # 🏁 SECCIÓN 22: 📅 🖌️ MERN Calendar - Estructura y Diseño
 
 ---
-## 📅 🖌️ 363. Preparar la creación de un nuevo evento
+## ⭐ 📅 🖌️ 364. Añadir un nuevo evento
 
+Empezamos creando un nuevo reducer en `calendarSlice.js`
+
+```diff
+export const calendarSlice = createSlice({
+    name: 'calendar',
+    initialState: {
+        events: [
+            tempEvent
+        ],
+        activeEvent: null
+    },
+    reducers: {
+        onSetActiveEvent: (state, { payload }) => {
+            state.activeEvent = payload;
+        },
++       onAddNewEvent: (state, { payload }) => {
++           state.events.push( payload );
++           state.activeEvent = null;
++       },
+    }
+});
+```
+
+En el hook `useCalendarStore.js` añadimos la función asíncrona `startSavingEvent` que nos permitirá crear el evento en nuestro BackEnd.
+
+Si el evento no tiene `_id`, hacemos el dispatch del reducer creado anteriormente (`onAddNewEvent`).
+
+```javascript
+const startSavingEvent = async( calendarEvent ) => {
+    // TODO: Aquí se haría la petición al backend
+    
+    // Todo sale bien
+    if( calendarEvent._id ){
+        // Actualizamos el evento
+    } else {
+        // Agregamos un nuevo evento
+        dispatch( onAddNewEvent({ 
+            ...calendarEvent, 
+            _id: new Date().getTime() // Este ID lo recibiremos del backend
+        }) );
+    }
+}
+```
+
+Para finalizar, en `CalendarModal.jsx`, en la función `onSubmit` añadimos con "await" la función `startSavingEvent` con los valores del formulario `formValues`.
+
+Dado que `startSavingEvent` se llama con `await`, la función `onSubmit` debe ser declarada como `async`. Esto es necesario porque `await` solo puede ser utilizado dentro de funciones asíncronas (`async`).
+
+```diff
++const onSubmit = ( event ) => {
+-const onSubmit = async( event ) => {
+    event.preventDefault();
+    setFormSubmitted(true);
+
+    const difference = differenceInSeconds(formValues.end, formValues.start);
+
+    if ( isNaN( difference ) || difference <= 0 ) {
+        Swal.fire('Fechas incorrectas', 'Revisar las fechas ingresadas', 'error');
+        return;
+    }
+
+    if ( formValues.title.length <= 0 ) {
+        console.log('Título obligatorio');
+        return;
+    }
+    console.log(formValues);
+
++   // TODO: Grabar en la base de datos
++   await startSavingEvent( formValues );
++   closeDateModal();
+};
+```
+
+
+---
+## 📅 🖌️ 363. Preparar la creación de un nuevo evento
 
 En esta clase añadimos y preparamos un Floating Action Button para crear un nuevo evento.
 
