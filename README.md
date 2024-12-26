@@ -486,6 +486,31 @@ useEffect(() => {
 # 🏁 Sección 23: 📅 🛢️🚀⚛️🌳 CalendarApp - Backend - Node, Express, Mongo
 
 
+---
+## 📅 🛢️🚀⚛️🌳 370. Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+
+- Node
+- Express
+- Mongoose
+- Modelos
+- Controllers
+- Middlewares de Express
+- JWT
+- Autenticación pasiva
+- Payloas
+- Encriptación
+- Rutas
+- CORS
+- Revalidar tokens
+- MongoDB
+- MongoAtlas
+- MongoCompass
+
+Es una sección bastante pesada en el aspecto de que no es React lo que veremos, pero todo lo haremos con JavaScript, y ya debemos de estar familiarizados con él.
+
+El backend que haremos aquí es robusto y lo podrían utilizar en proyectos reales, espero que lo aprovechen y sobre todo aprendan bastante.
 
 # 🆕 Sección 23: 📅 🛢️🚀⚛️🌳 CalendarApp - Backend - Node, Express, Mongo
 
