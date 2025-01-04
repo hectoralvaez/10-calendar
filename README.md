@@ -840,6 +840,76 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 413. useForm - Login y Registro
+
+Importamos el `useForm` de nuestro repositorio de hooks:
+[useForm](https://github.com/hectoralvaez/custom-hooks/blob/main/useForm/useForm.js)
+
+En nuestra página de login, importamos el hook:
+```javascript
+import { useForm } from "../../hooks";
+```
+
+Definimos el estado inicial de los dos formularios:
+
+```javascript
+const loginFormFields = {
+    loginEmail: '',
+    loginPassword: '',
+}
+
+const registerFormFields = {
+    registerName: '',
+    registerEmail: '',
+    registerPassword: '',
+    registerPassword2: '',
+}
+```
+
+Dentro de `LoginPage`, iniciamos nuestro hook `useForm` para los dos formularios:
+```javascript
+const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
+const { registerName, registerEmail, registerPassword, registerPassword2, onInputChange: onRegisterInputChange } = useForm(registerFormFields);
+```
+
+Dentro de `LoginPage`, iniciamos el evento de cada formulario:
+
+```javascript
+const loginSubmit = ( event ) => {
+    event.preventDefault();
+    console.log({ loginEmail, loginPassword });
+}   
+
+const registerSubmit = ( event ) => {
+    event.preventDefault();
+    console.log({ registerName, registerEmail, registerPassword, registerPassword2 });
+}   
+```
+
+Ahora a cada formulario le añadimos el `onSubmit` de los eventos generados:
+```javascript
+<form onSubmit={ loginSubmit }>
+...
+</form>
+
+<form onSubmit={ registerSubmit }>
+...
+</form>
+```
+
+En cada input le añadimos el `name`, `value` y `onChange`
+```diff
+<input
+    type="text"
+    className="form-control"
+    placeholder="Nombre"
++   name="registerName"
++   value={ registerName }
++   onChange={ onRegisterInputChange }
+/>
+```
+
+---
 ## 📅 🌐 411. AuthSlice
 
 Dentro del 'store', en la carpeta 'auth' creamos nuestro `authSlice` con `createSlice` de Redux Toolkit.
