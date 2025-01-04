@@ -1,3 +1,18 @@
+
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)
+![SASS](https://img.shields.io/badge/SASS-CC6699?style=flat-square&logo=sass&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=jest&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Railway](https://img.shields.io/badge/Railway-0A192F?style=flat-square&logo=railway&logoColor=white)
+
+
 ### Emojis
 
 🆕 Inicio Sección
@@ -47,7 +62,7 @@ Netlify: https://festivaldegifs.netlify.app
 GitHub: https://github.com/hectoralvaez/festival-de-gifs  
 GitHub Pages: https://hectoralvaez.github.io/festival-de-gifs/  
 
-React, Vite, GitHub, Jest, React Testing Library, Netlify, GitHub Pages, Postman, Firebase
+React, Vite, GitHub, Jest, React Testing Library, Netlify, GitHub Pages, Postman, Firebase, MongoDB, Mongoosejs
 
 ---
 
@@ -117,32 +132,151 @@ export const store = configureStore({
 
 ---
 
+## ARRANCAR BACKEND
+### 🌳 Node
+Arrancamos el proyecto generando el `package.json` con el siguiente comando:
+```
+npm init -y
+```
+[npm-init](https://docs.npmjs.com/cli/v9/commands/npm-init)
+
+Instalamos `nodemon` de forma global:
+```
+sudo npm i nodemon -g
+```
+[nodemon](https://www.npmjs.com/package/nodemon)
+
+Una vez instalado `nodemon` añadimos los siguientes scripts a nuestro `package.json`
+```diff
+"scripts": {
+-   "test": "echo \"Error: no test specified\" && exit 1"
++   "dev": "nodemon index.js",
++   "start": "node index.js"
+},
+```
+
+Si queremos hacer un watch de `index.js`, arranca el server con `nodemon` (auto restart):
+```
+npm run dev
+```
+
+Arranca el server con node 
+```
+npm start
+```
+
+---
+
+### 🚀 Express
+#### Primeros pasos
+Instalamos localmente "Express":
+```
+npm i express
+```
+[express](https://www.npmjs.com/package/express)
+
+En nuestro `package.json` se añaden las siguientes lineas:
+```diff
++ "dependencies": {
++   "express": "^4.21.2"
++ }
+```
+
+Hacemos la primera configuración de nuestro server en `index.js`
+
+```javascript
+const express = require('express');
+
+// Crear el servidor de express
+const app = express();
+
+// Rutas
+app.get('/', (req, res) => {
+    res.json({
+        ok: true
+    });
+});
+
+// Escuchar peticiones
+app.listen( 4000, () => {
+    console.log(`Servidor corriendo en puerto ${ 4000 }`);
+});
+```
+
+> IMPORTANTE:   
+> No usar el puerto 3000, ya que es el que usaremos en nuestra app de React, así nuestro Backend estará en un puerto distinto al de Front.
+
+A partir de ahora para ver el funcionamiento del server usaremos Postman, no el navegador web.
+
+#### Variables de entorno y carpeta pública
+
+Instalamos `dotenv` para poder gestionar las variables de entorno que tenemos en `.env`
+
+```
+npm i dotenv
+```
+[dotenv](https://www.npmjs.com/package/dotenv)
+
+Definimos en `.env` el puerto
+```
+PORT=4000
+```
+
+En index.js definimos las variables de entorno con esta línea:
+```
+require('dotenv').config();
+```
+Ya podemos llamar a las variables de entorno de la siguiente manera: `process.env.PORT`.
+
+Ejemplo:
+```javascript
+app.listen( process.env.PORT, () => {
+    console.log(`Servidor corriendo en puerto ${ process.env.PORT }`);
+});
+```
+
+Además, añadimos al index.js el directorio público, en nuestro caso, la carpeta "public", donde tenemos el index.html y una hoja de estilos:
+
+```javascript
+// Directorio público
+app.use( express.static('public') );
+```
+
+Ahora al abrir en el navegador web nuestro localhost con el puerto 4000, aparece el contenido de index.html.
+
+---
+
 # LINKS DE INTERÉS:  
+## REACT
 - [React: Documentación y recursos relacionados](https://es.reactjs.org/docs/getting-started.html)  
 - [React: Aprende React](https://es.react.dev/learn): Documentación de React. Introducción al 80% de los conceptos de React de uso diario
 - [React: Presentando Hooks](https://es.reactjs.org/docs/hooks-intro.html#motivation): Los _Hooks_ son una nueva incorporación en React 16.8. Te permiten usar estado y otras características de React sin escribir una clase.
 - [React: Referencia de la API de los Hooks](https://es.reactjs.org/docs/hooks-reference.html)
 - [React: Hooks "Motivación"](https://es.reactjs.org/docs/hooks-intro.html#motivation)
 
-- [GitHub](https://github.com/): Plataforma de alojamiento de código para el control de versiones y la colaboración.
-- [Netlify](https://www.netlify.com/): Desplegar desplegar aplicaciones sin BackEnd.
+## TESTS
 - [Jest](https://jestjs.io/): Para hacer tests en Babel, TypeScript, Node, React, Angular, Vue y más. (combinada con [React Testing Library](https://testing-library.com/docs/))
 - [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/): Librería para hacer tests en React (combinada con [Jest](https://jestjs.io/)).  
 En las instalaciones CRA ya viene instalada, con Vite hay que hacer la instalación a parte.  
 En terminal: `yarn add --dev @testing-library/react @types/jest jest-environment-jsdom`
+
+## VITE
 - [Vite](https://vitejs.dev/): La alternativa a [Create React App (CRA)](https://create-react-app.dev/), es más ligero
 - [Use Vite for React Apps instead of CRA](https://dev.to/nilanth/use-vite-for-react-apps-instead-of-cra-3pkg)
+
+
+## LIBRERÍAS
 - [React Hook Form](https://react-hook-form.com/): Librería que te ayuda a validar formularios en React. Es una librería mínima sin otras dependencias, a la vez que es eficiente y fácil de usar, lo que requiere que los desarrolladores escriban menos líneas de código que otras librerías de formularios.
 - [React Router](https://reactrouter.com): Biblioteca de enrutamiento con la que puedes definir diferentes rutas dentro de tu aplicación y asignar componentes específicos a cada ruta. Cuando el usuario navega a una ruta determinada, React Router se encarga de renderizar el componente correspondiente en el lugar adecuado de la interfaz de usuario. Es esencial para construir aplicaciones de una sola página (SPA) con múltiples rutas y vistas en React, ya que facilita el enrutamiento y la navegación entre componentes de manera eficiente y estructurada.
-
 - [React Router (useNavigate)](https://reactrouter.com/en/main/hooks/use-navigate): Este hook nos devuelve la función 'navigate', que nos permite hacer redirecciones programáticas. Con esta función, podemos hacer lo mismo que con el componente navigate. Es decir, redirigir una URL al resultado de otra ruta.
 
   La diferencia entre el hook useNavigate y el componente navigate en React Router es que, con el uso del hook, podemos utilizar una función. Esto implica que podemos utilizarlo en cualquier parte del código. El problema de utilizar componentes en vez de funciones es que debemos renderizarlos. Ya que una función no necesita este proceso de render, podemos insertarla donde queramos.
-
 - [Material UI components](https://mui.com/material-ui/all-components/)
 
     Material UI tiene como objetivo proporcionar elementos básicos para que los desarrolladores creen excelentes interfaces de usuario utilizando las pautas de Material Design como referencia.
 
+
+## REDUX
 - [Redux](https://redux.js.org): Biblioteca para el manejo del estado con un almacenamiento centralizado.
 - [React Redux](https://react-redux.js.org): Conector oficial entre Redux y React.
 - [Redux Toolkit (RTK)](https://redux-toolkit.js.org): Conjunto de herramientas para simplificar el uso de Redux.
@@ -156,11 +290,132 @@ La extensión proporciona potenciadores para su flujo de trabajo de desarrollo d
 
 Este es un proyecto de código abierto. Consulte el repositorio oficial para obtener más detalles: https://github.com/reduxjs/redux-devtools.
 
+## PLATAFORMAS
+- [GitHub](https://github.com/): Plataforma de alojamiento de código para el control de versiones y la colaboración.
+- [Netlify](https://www.netlify.com/): Desplegar desplegar aplicaciones sin BackEnd.
 
-- PETICIONES HTTP 
-    - [Fetch](https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch) Viene en JavaScript
-    - [Axios](https://axios-http.com) Fernando lo prefiere a Fetch
+## BBDD
+- [MongoDB](https://www.mongodb.com/es): Base de datos NoSQL orientada a documentos. En lugar de almacenar datos en tablas y filas como las bases de datos relacionales, MongoDB organiza la información en documentos JSON (o BSON) flexibles, lo que la hace ideal para manejar datos no estructurados o semiestructurados. Es muy escalable y se utiliza comúnmente para aplicaciones web modernas debido a su velocidad y capacidad para manejar grandes volúmenes de datos.
+- [MongoDB - Servicio de base de datos totalmente gestionada](https://www.mongodb.com/es/cloud/atlas/efficiency)
 
+[MongoDB Compass](https://www.mongodb.com/products/tools/compass) es una interfaz gráfica oficial para MongoDB que permite visualizar, explorar y gestionar bases de datos de forma intuitiva. Con Compass, puedes realizar consultas, analizar esquemas, validar datos y optimizar el rendimiento sin necesidad de usar comandos en la línea de terminal. Es ideal para desarrolladores que prefieren herramientas visuales para trabajar con MongoDB.
+
+- [Mongoosejs](https://mongoosejs.com/) Biblioteca de Node.js que proporciona una capa de abstracción para interactuar con MongoDB. Permite definir esquemas y modelos para estructurar y validar los datos de manera más sencilla, ofreciendo una forma más organizada y amigable de trabajar con MongoDB en aplicaciones JavaScript. Además, Mongoose incluye funcionalidades avanzadas como middleware, validaciones y consultas más intuitivas.
+
+## PETICIONES HTTP 
+- [Fetch](https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch) Viene en JavaScript
+- [Axios](https://axios-http.com) Fernando lo prefiere a Fetch
+
+## HTTP STATUS CODES
+- [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes) Códigos de tres dígitos que los servidores web envían al navegador o cliente para informar sobre el resultado de una solicitud. Cada código tiene un significado específico y pertenece a una de las siguientes categorías:
+    - 1xx (Informativos)
+    - 2xx (Éxito)
+    - 3xx (Redirecciones)
+    - 4xx (Errores del Cliente) 
+    - 5xx (Errores del Servidor) 
+
+## SEGURIDAD
+### JSON Web Tokens (JWT)
+- [jwt](https://jwt.io/): Herramienta en línea para decodificar, verificar y generar JSON Web Tokens (JWT), utilizados para autenticar y transmitir información de manera segura en aplicaciones web.
+
+#### ¿Cómo funciona un JWT?
+1. Autenticación inicial:
+- El cliente (por ejemplo, una aplicación frontend) se autentica enviando credenciales al servidor (como usuario y contraseña).
+- Si las credenciales son válidas, el servidor genera un JWT.
+
+2. Token generado:
+- Este JWT se envía al cliente y se almacena (por ejemplo, en localStorage o una cookie).
+
+3. Autenticación subsiguiente:
+- Para cada solicitud posterior, el cliente envía el JWT en el encabezado de autorización (por ejemplo, `Authorization: Bearer <token>`).
+- El servidor verifica el JWT sin necesidad de consultar la base de datos, ya que el token contiene toda la información requerida.
+
+4. Autenticidad:
+- El servidor verifica la firma del JWT con una clave secreta o pública (dependiendo del algoritmo) para asegurarse de que el token no ha sido modificado.
+
+#### Estructura del JWT
+Un JWT consta de tres partes separadas por puntos (.):
+
+1. Header (Encabezado):
+- Describe el tipo de token y el algoritmo de encriptación utilizado.
+- Ejemplo:
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+2. Payload (Carga útil):
+- Contiene los datos o claims (reclamos) del usuario, como:
+    - Datos públicos: `sub` (ID del usuario), `name`, `email`.
+    - Datos privados o sensibles (con moderación).
+- Ejemplo:
+```json
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+```
+> ⚠️ Importante: Esta información está codificada, pero no cifrada, por lo que puede ser leída si se decodifica el token.
+
+3. Signature (Firma):
+- Garantiza la integridad del token y autentica su origen.
+- Se genera combinando:
+    - El encabezado y el payload codificados en Base64.
+    - Una clave secreta.
+    - El algoritmo especificado (como `HS256` o `RS256`).
+- Ejemplo de cálculo:
+```json
+HMACSHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  secret
+)
+```
+
+Token completo (Ejemplo):
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+#### Advertencias importantes de seguridad
+1. No almacenar datos sensibles en el Payload:
+- Los datos del payload están codificados, no cifrados, por lo que cualquiera puede leerlos si tiene acceso al token.
+
+2. Usar HTTPS:
+- Asegúrate de que el token se transmita únicamente por conexiones seguras para evitar su intercepción.
+
+3. Clave secreta segura:
+- Utiliza claves secretas largas y complejas para algoritmos simétricos (como `HS256`) y protege las claves privadas en algoritmos asimétricos (como `RS256`).
+
+4. Establecer tiempos de expiración:
+- Usa el claim `exp` para que los tokens tengan un tiempo de vida limitado, reduciendo el riesgo de uso indebido en caso de filtración.
+
+5. Evitar el almacenamiento inseguro:
+- No guardes el token en `localStorage` si puedes evitarlo. Usa cookies seguras (`HttpOnly`, `Secure`, y `SameSite`) cuando sea posible.
+
+6. Revocar tokens comprometidos:
+- No puedes invalidar un JWT directamente. Implementa una lista de revocación o cambios en la clave secreta si es necesario.
+
+7. Verificar siempre la firma del JWT:
+- Nunca confíes en un JWT sin verificar su firma y validez en el servidor.
+
+## PAQUETES DE NODE.JS
+[Node Package Manager](https://docs.npmjs.com)
+- [npm-init](https://docs.npmjs.com/cli/v9/commands/npm-init) Crea un archivo package.json para iniciar un proyecto Node.js y definir sus configuraciones básicas.
+- [nodemon](https://www.npmjs.com/package/nodemon) Monitorea cambios en los archivos del proyecto y reinicia automáticamente el servidor durante el desarrollo.
+- [express](https://www.npmjs.com/package/express) Framework de Node.js que facilita la creación de aplicaciones web y API rápidas y escalables.
+- [dotenv](https://www.npmjs.com/package/dotenv) Permite cargar variables de entorno desde un archivo `.env` para mantener configuraciones seguras y organizadas.
+- [express-validator](https://www.npmjs.com/package/express-validator) Middleware para validar y sanitizar datos en aplicaciones construidas con Express.
+- [Mongoosejs](https://mongoosejs.com/) Proporciona una capa de abstracción para interactuar con MongoDB. Permite definir esquemas y modelos para estructurar y validar los datos de manera más sencilla. Además incluye funcionalidades avanzadas como middleware, validaciones y consultas más intuitivas.
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs) es una biblioteca de JavaScript que permite cifrar contraseñas de forma segura utilizando el algoritmo bcrypt, proporcionando funciones para crear hashes de contraseñas y verificar si un texto coincide con un hash almacenado.
+
+- [jwt](https://jwt.io/): Herramienta en línea para decodificar, verificar y generar JSON Web Tokens (JWT), utilizados para autenticar y transmitir información de manera segura en aplicaciones web.
+- [cors](https://www.npmjs.com/package/cors)
+El paquete CORS en Node.js permite habilitar Cross-Origin Resource Sharing, una política que permite o restringe solicitudes HTTP desde diferentes orígenes en aplicaciones web. Es útil para manejar peticiones entre dominios, especialmente en APIs.
+
+- [moment](https://www.npmjs.com/package/moment): Biblioteca de JavaScript que facilita el manejo, manipulación y formateo de fechas y horas, ofreciendo herramientas para trabajar con zonas horarias, diferencias entre fechas y formatos personalizados
 
 ## BEST PRACTICES
 ### SOLID
@@ -207,7 +462,7 @@ Este principio establece que los módulos de alto nivel no deben depender de mó
 > Es como cuando armas un robot con piezas de construcción. El cerebro del robot (la parte importante) le dice a las piezas cómo moverse, pero no necesita saber exactamente cómo es cada pieza. Si cambias las piezas por otras diferentes, el robot sigue funcionando bien porque el cerebro sigue dando las órdenes, y las piezas solo hacen lo que les toca.
 
 ## HERRAMIENTAS
-### [Firebase](https://console.firebase.google.com)
+### [Firebase](https://console.firebase.google.com)
 Plataforma de desarrollo de aplicaciones creada por Google que proporciona una variedad de herramientas y servicios diseñados para ayudar a los desarrolladores a construir, mejorar y escalar aplicaciones móviles y web de manera eficiente. Es particularmente popular debido a su integración con aplicaciones en tiempo real, su facilidad de uso y la variedad de productos que ofrece sin la necesidad de manejar servidores complejos.
 
 ---
@@ -412,6 +667,91 @@ Aquí el ejemplo concreto con [Vite.js](https://github.com/mui/material-ui/tree/
 ## GENERIC:
 - Las dev tools de Chrome solo funcionan en desarollo, cuando estamos en producción, no funcionan.
 
+## MIDDLEWARE
+
+Un middleware es una función que se ejecuta entre la solicitud (request) del cliente y la respuesta (response) que envía el servidor. Se utiliza en aplicaciones web para gestionar tareas como la autenticación, la validación de datos, el registro de actividades (logging), el manejo de errores, y más.
+
+### ¿Cómo funciona un middleware?
+En Node.js, particularmente con Express, un middleware tiene la forma de una función con los siguientes parámetros:
+
+```javascript
+function middleware(req, res, next) {
+  // Lógica del middleware
+  next(); // Llama al siguiente middleware o al manejador de la solicitud
+}
+```
+
+- `req`: Representa la solicitud del cliente (request).
+- `res`: Representa la respuesta que el servidor enviará (response).
+- `next`: Es una función que llama al siguiente middleware en la cadena. Si no se llama a `next()`, el flujo se detiene.
+
+### Tipos de middleware
+1. Middleware integrado de Express:
+    - Ya vienen incluidos en Express.
+    - Ejemplo: express.json() para procesar JSON en solicitudes.
+
+```javascript
+app.use(express.json());
+```
+
+2. Middleware de terceros:
+    - Instalados como paquetes externos.
+    - Ejemplo: morgan para registrar solicitudes HTTP.
+```javascript
+const morgan = require('morgan');
+app.use(morgan('tiny'));
+```
+
+3. Middleware definido por el usuario:
+    - Creado manualmente para tareas específicas.
+    - Ejemplo: Middleware para verificar si el usuario está autenticado.
+
+```javascript
+function isAuthenticated(req, res, next) {
+  if (req.user) {
+    next(); // Continúa si el usuario está autenticado
+  } else {
+    res.status(401).send('No autorizado');
+  }
+}
+app.use(isAuthenticated);
+```
+
+4. Middleware de manejo de errores:
+    - Tiene un cuarto parámetro err para manejar errores.
+```javascript
+function errorHandler(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Algo salió mal');
+}
+app.use(errorHandler);
+```
+
+### Ejemplo práctico con Express:
+Supongamos que quieres registrar todas las solicitudes entrantes:
+
+```javascript
+const express = require('express');
+const app = express();
+
+// Middleware de registro
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next(); // Continúa al siguiente middleware o ruta
+});
+
+app.get('/', (req, res) => {
+  res.send('¡Hola, mundo!');
+});
+
+app.listen(3000, () => console.log('Servidor en http://localhost:3000'));
+```
+
+Aquí, el middleware registra cada solicitud antes de que llegue al manejador de la ruta.
+
+### En resumen:
+Un middleware actúa como un "intermediario" en el flujo de solicitudes y respuestas, procesando o modificando los datos en tránsito antes de que lleguen a su destino final.
+
 ## VISUAL STUDIO CODE:  
 - Para crear un Functional Component usamos el snippet`rafc`.
 
@@ -480,11 +820,1357 @@ useEffect(() => {
 }, [initialForm])
 ```
 
+### CONSOLA
+Para imprimir un objeto en consola usar:
+```
+console.dir(req.body, { depth: null });
+```
+
+Si usamos 
+```
+console.log(req.body);
+```
+
+Devuelve `[object Object]`
+
 
 <br />
 
-# 🏁 Sección 23: 📅 🛢️🚀⚛️🌳 CalendarApp - Backend - Node, Express, Mongo
 
+# 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
+
+---
+## 📅 🌐 409. Continuación de proyecto - Calendar + Backend
+
+Arrancamos los proyectos de Front y Back
+
+En Front estamos usando yarn y en Back npm, no pasa nada, pero sería  recomendable unificar gestor de paquetes.
+
+---
+## 📅 🌐 408. Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+
+- Conexión de nuestro Backend con el Frontend
+
+Esta sección trabajaremos integrando nuestro backend con el frontend hecho en React, que ya tenemos casi terminado, sólo debemos de llamar los servicios y dispara las acciones respectivas que ya tenemos en nuestra aplicación del calendario.
+
+Toda esta sección está enfocada en la parte de la autenticación y manejo del JWT, hay que guardar y estar actualizando el token de autenticación y realizar las pruebas respectivas!
+
+Estamos llegando al final del curso :'(... pero aún falta mucho :D
+
+
+# 🆕 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
+
+# 🏁 Sección 25: 📅 🚄 Despliegue del backend a la nube
+
+---
+## ⭐⭐⭐⭐ 📅 🚄 405. Desplegar a Railway
+En esta sección se explica paso a paso cómo desplegar nuestro backend en Railway.
+
+[Backend en Railway](https://10-calendar-backend.up.railway.app)
+
+
+---
+## 📅 🚄 404. Pruebas antes de desplegar
+
+Pruebas OK
+
+---
+## 📅 🚄 403. Subir proyecto a GitHub
+
+(Ya lo tenía subido)
+
+---
+## 📅 🚄 402. Temas puntuales de la sección
+
+Despleagar el backend en [railway](https://railway.com/)
+
+En esta clase, nos enfocaremos en desplegar nuestro backend a [Railway](https://railway.com), el cual es un servicio en la nube que nos permite desplegar fácilmente aplicaciones de Node.
+
+- Configuración de Railway
+- Subida a Github
+- Configuración de variables de entorno
+- Prueba del backend en la nube
+
+# 🆕 Sección 25: 📅 🚄 Despliegue del backend a la nube
+
+# 🏁 Sección 24: 📅 🛢️🚀⚛️🌳 + ✏️📖♻️🗑️ Backend - Eventos del calendario - CRUD
+
+---
+## ⭐⭐⭐ 📅 D 📖 🌐 399. Eliminar Eventos
+
+Eliminamos un evento en la función `deleteEvent` además controlando que el usuario que lo elimine sea el autor del evento. Hemos aprobechado el código generado para `updateEvent` y se ha adaptado para eliminar evento.
+
+```javascript
+// DELTE
+const deleteEvent = async(req, res = response) => {
+    
+    const eventId = req.params.id;
+    const uid = req.uid;
+
+    try {
+        const event = await Event.findById( eventId );
+
+        if( !event ) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Evento no existe por ese id'
+            });
+        }
+                
+        if( event.user.toString() !== uid ) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegio para eliminar este evento'
+            });
+        }
+
+        await Event.findByIdAndDelete(eventId);
+
+        res.json({
+            ok: true,
+            msg: 'deleteEvent',
+        });
+    }  
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+    }
+}
+```
+
+
+---
+## ⭐⭐⭐ 📅 U 📖 🌐 398. Actualizar un Evento
+
+Editamos un evento en la función `updateEvent` además controlando que el usuario que lo edite sea el autor del evento.
+
+```javascript
+// UPDATE
+const updateEvent = async(req, res = response) => {
+
+    const eventId = req.params.id;
+    const uid = req.uid;
+
+    try {
+        const event = await Event.findById( eventId );
+
+        if( !event ) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Evento no existe por ese id'
+            });
+        }
+                
+        if( event.user.toString() !== uid ) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene privilegio de editar este evento'
+            });
+        }
+
+        const newEvent = {
+            ...req.body,
+            user: uid
+        }
+
+        const eventUpdated = await Event.findByIdAndUpdate(
+            eventId,
+            newEvent,
+            { new: true }
+        );
+
+        res.json({
+            ok: true,
+            msg: 'updateEvent',
+            event: eventUpdated
+        });
+    }  
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+    }
+}
+```
+
+
+---
+## ⭐⭐⭐ 📅 R 📖 🌐 397. Obtener el listado de los Eventos
+
+Mostramos el listado de eventos en la función `getEvents`
+
+```javascript
+// READ
+const getEvents = async(req, res = response) => {
+
+    const events = await Event.find().populate('user', 'name');
+
+    res.json({
+        ok: true,
+        msg: 'getEvents',
+        events
+    });
+}
+```
+
+`Event.find()` nos devuelve toda la información del evento más toda la información del usuario.
+
+Si solo nos interesa el nombre del usuario, tenemos que aplicar "populate"
+```
+Event.find().populate('user', 'name');
+```
+
+Si nos interesara además el password, por ejemplo, sería así:
+```
+Event.find().populate('user', 'name password');
+```
+
+
+---
+## ⭐⭐⭐ 📅 C ✏️ 🌐 396. Grabar el evento en la base de datos
+
+En el controller de events importamos el modelo 'Event' y ya podemos obtener la información para guardarla en la BBDD.
+
+```javascript
+const Event = require('../models/Event');
+
+// CREATE
+const createEvent = async(req, res = response) => {
+
+    const event = new Event( req.body );
+    
+    try {
+        event.user = req.uid;
+        const eventSaved = await event.save();
+        res.status(201).json({
+            ok: true,
+            msg: 'createEvent',
+            event: eventSaved,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+    }
+}
+```
+
+Además, en el modelo del evento, podemos hacer limpieza de lo que no necesitamos que nos envíe la respuesta del JSON y renombrar variables.
+
+Con esto, eliminamos `__v`, que no lo usamos y cambiamos `_id` por `id`:
+
+```javascript
+EventSchema.method('toJSON', function() {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+});
+```
+
+---
+## 📅 🌐 395. Validar campos necesarios
+
+Es importante validar los campos antes de enviar la información a la base de datos para optimizar recursos y no dejar todo el trabajo al Backend.
+
+Instalamos `moment`
+```
+npm i moment
+```
+
+Creamos el "helper" `isDate.js` que nos ayuda a confirmar que el dato que recibimos es una fecha:
+
+```javascript
+const moment = require('moment');
+
+const isDate = ( value ) => {
+    if ( !value ) {
+        return false;
+    }
+
+    const fecha = moment( value );
+
+    if ( fecha.isValid() ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+module.exports = { isDate };
+```
+
+En las rutas del evento, en la de crear evento, añadimos los middlewares que nos ayudan a confirmar que la información que vamos a enviar a la BBDD está completa:
+
+```javascript
+// CREATE
+router.post('/new',
+    [
+        check('title', 'El título es obligatorio').not().isEmpty(),
+        check('start', 'La fecha de inicio es obligatoria').custom( isDate),
+        check('end', 'La fecha de finalización es obligatoria').custom( isDate),
+        validarCampos,
+    ],
+    createEvent);
+```
+
+
+---
+## 📅 🌐 394. Modelo Evento
+
+Añadimos el 'Schema' del modelo "Event"
+
+```javascript
+const { Schema, model } = require('mongoose');
+
+const EventSchema = Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    notes: {
+        type: String,
+    },
+    start: {
+        type: Date,
+        required: true,
+    },
+    end: {
+        type: Date,
+        required: true,
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'Usuario',
+    }
+});
+
+module.exports = model('Event', EventSchema);
+```
+
+Es importante la parte de `user`, de tipo `Schema.Types.ObjectId` y referenciarlo al modelo creado anteriormente "Usuario"
+
+user: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario',
+}
+
+---
+## 📅 🌐 393. Resolución de la tarea - CRUD
+
+Todo OK, solo una pequeña mejora para optimizar el código.
+
+Como todas las rutas tienen que hacer la validación del middeware de JWT, en vez de ponerlo en cada llamada de la ruta:
+
+```javascript
+router.post('/new', validarJWT, createEvent);
+```
+
+Se quita de la ruta y se pone por encima de todas las rutas que necesiten validar el token:
+
+```javascript
+router.use(validarJWT);
+```
+
+```diff
+// Todas tienen que pasar por la validación del middeware de JWT
++router.use(validarJWT);
+
+// CREATE
+-router.post('/new', validarJWT, createEvent);
++router.post('/new', createEvent);
+```
+
+> Si alguna ruta no tuviera que validar el token, se tiene que poner por encima del `router.use(validarJWT);`, 
+
+> NOTA IMPORTANTE:  
+> El token tiene que pasarse por el header con la variable `x-token`
+
+
+---
+## 📅 🌐 392. Continuación del proyecto - Calendar Backend
+
+Esta clase es una tarea que consiste en crear las rutas que nos permitirán hacer el CRUD de los eventos.
+
+Empezamos añadiendo una ruta nueva en `index.js`
+
+```javascript
+app.use('/api/events', require('./routes/events') );
+```
+
+En el controller de events creamos todas las acciones CRUD:
+
+```javascript
+const { response } = require('express');
+
+// CREATE
+const createEvent = (req, res = response) => {
+    
+    res.json({
+        ok: true,
+        msg: 'createEvent'
+    });
+}
+
+// READ
+const getEvents = (req, res = response) => {
+    
+    res.json({
+        ok: true,
+        msg: 'getEvents'
+    });
+}
+
+// UPDATE
+const updateEvent = (req, res = response) => {
+    
+    res.json({
+        ok: true,
+        msg: 'updateEvent'
+    });
+}
+
+// DELTE
+const deleteEvent = (req, res = response) => {
+    
+    res.json({
+        ok: true,
+        msg: 'deleteEvent'
+    });
+}
+
+module.exports = {
+    createEvent,
+    getEvents,
+    updateEvent,
+    deleteEvent
+}
+```
+
+Creamos las rutas de events:
+
+```javascript
+/* 
+    Rutas de Eventos / Events
+    host + /api/events
+*/
+
+const { Router } = require('express');
+const { getEvents, createEvent, updateEvent, deleteEvent } = require('../controllers/events');
+const { validarJWT } = require('../middlewares/validar-jwt');
+
+const router = Router();
+
+// Todas tienen que pasar por la validación del middeware de JWT
+// CREATE
+router.post('/new', validarJWT, createEvent);
+
+// READ
+router.get('/', validarJWT, getEvents);
+
+// UPDATE
+router.put('/update/:id', validarJWT, updateEvent);
+
+// DELTE
+router.delete('/delete/:id', validarJWT, deleteEvent);
+
+module.exports = router;
+```
+
+---
+## 📅 🌐 391. Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+
+- CRUD completo de eventos de calendario
+- Modelos
+- Validaciones automáticas
+- Validaciones personalizadas
+
+Aquí trabajaremos creando todo lo necesario para que podamos insertar, actualiza y eliminar información relacionada a los eventos que nuestra aplicación del calendario necesitará.
+
+
+# 🆕 Sección 24: 📅 🛢️🚀⚛️🌳 + ✏️📖♻️🗑️ Backend - Eventos del calendario - CRUD
+
+# 🏁 Sección 23: 📅 🛢️🚀⚛️🌳 CalendarApp - Backend - Node, Express, Mongo
+---
+## 📅 🛢️ 388. Configurar CORS
+
+Instalamos CORS de Node Package Manager
+```
+npm install cors
+```
+
+
+Y se aplica la configuración por defecto de 'cors' en `index.js`
+
+```diff
+const express = require('express');
+require('dotenv').config();
++const cors = require('cors');
+const { dbConnection } = require('./database/config');
+
+// Crear el servidor de express
+const app = express();
+
+// Base de datos
+dbConnection();
+
++// CORS
++app.use( cors());
+
+// Directorio público
+app.use( express.static('public') );
+
+// Lectura y parseo del body
+app.use( express.json() );
+
+// Rutas
+app.use('/api/auth', require('./routes/auth') );
+
+// TODO: CRUD: Eventos // get, create, update, delete
+
+// Escuchar peticiones
+app.listen( process.env.PORT, () => {
+    console.log(`Servidor corriendo en puerto ${ process.env.PORT }`);
+});
+```
+
+
+
+---
+## ⭐ 📅 🛢️ 387. Revalidar JWT
+
+Los tokens no se pasan por el "Body", como hemos estado haciendo hasta ahora pasando la información del usuario en Postman, que en el Body añadíamos el JSON con la información necesaria:
+```json
+{
+    "email": "hector@gmail3.com",
+    "password": "123456"
+}
+```
+
+Los tokens se pasan a través del header y el nombre de la variable, es un estandard, que si es un header personalizado, la variable tiene que empezar por "x-..."
+
+En nuestro ejemplo para pasar el token por el header, le pondremos `x-token`.
+
+Solo se dará por válido ese token si llega por el header a través de la variable `x-token`.
+
+
+
+Generamos nuestro middleware para validar el token:
+
+```javascript
+const { response } = require('express');
+const jwt = require('jsonwebtoken');
+
+const validarJWT = (req, res = response, next) => {
+    // x-token headers 
+    const token = req.header('x-token');
+
+    if( !token ) {
+        return res.status(401).json({
+            ok: false,
+            msg: 'No hay token en la petición'
+        });
+    }
+
+    try {
+
+        const { uid, name } = jwt.verify(
+            token,
+            process.env.SECRET_JWT_SEED
+        );
+
+        req.uid = uid;
+        req.name = name;
+
+    } catch (error) {
+        return res.status(401).json({
+            ok: false,
+            msg: 'Token no válido'
+        });
+    }
+
+    next();
+
+}
+
+module.exports = {
+    validarJWT
+}
+```
+
+
+En la ruta de "Revalidar token", añadimos el middleware:
+
+```diff
+-router.get('/renew', revalidarToken);
++router.get('/renew', validarJWT, revalidarToken);
+```
+
+> Como solo hay un middlweare en esta ruta, se puede llamar directamente, no hace falta que sea una array
+
+
+En el controller, acabamos de implementar la función `revalidarToken`
+
+
+```diff
+-const revalidarToken = (req, res = response) => {
++const revalidarToken = async(req, res = response) => {
+
++   const { uid, name } = req;
+
++   // Generar nuestro JWT
++   const token = await generarJWT( uid, name );
+
+    res.json({
+        ok: true,
++       uid,
++       name,
++       token,
+        msg: 'renew'
+    });
+}
+```
+
+---
+## ⭐ 📅 🛢️ 386. Generar un Json Web Token
+[jwt](https://jwt.io/): Herramienta en línea para decodificar, verificar y generar JSON Web Tokens (JWT), utilizados para autenticar y transmitir información de manera segura en aplicaciones web.
+
+Instalamos jsonwebtoken:
+```
+npm i jsonwebtoken 
+```
+
+Creamos un helper `jwt.js` que nos devolverá el token si todo ha ido bien y un error en caso de no recibir correctamente la información:
+
+```javascript
+const jwt = require('jsonwebtoken');
+
+const generarJWT = ( uid, name ) => {
+    
+    return new Promise( (resolve, reject) => {
+        const payload = { uid, name };
+        jwt.sign( payload, process.env.SECRET_JWT_SEED, {
+            expiresIn: '2h',
+        }, (err, token) => {
+
+            if( err ) {
+                console.log(err);
+                reject('No se pudo generar el token');
+            }
+
+            resolve( token );
+
+        });
+    });
+
+}
+
+module.exports = {
+    generarJWT
+}
+```
+> INFO   
+> Para gestionar el token, usamos `Promise`. Una promesa es un objeto en JavaScript que representa el resultado de una operación asincrónica, que puede completarse con éxito (resolve) o fallar (reject).
+> 
+> resolve: Se llama cuando la operación se completa con éxito, proporcionando el valor esperado como resultado.   
+> reject: Se llama cuando la operación falla, proporcionando un motivo o error como resultado.
+
+En el controller importamos `generarJWT` y tanto en `loginUsuario` como en `crearUsuario` añadimos el "token":
+
+```diff
+const loginUsuario = async(req, res = response) => {
+    
+    const { email, password } = req.body;
+
+    try {
+        const usuario = await Usuario.findOne({ email }); 
+
+        if( !usuario ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no existe con ese email'
+            });
+        }
+
+        // Confirmar los passwords
+        const validPassword = bcrypt.compareSync( password, usuario.password );
+
+        if( !validPassword ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Password incorrecto'
+            });
+        }
+
++       // Generar nuestro JWT
++       const token = await generarJWT( usuario.id, usuario.name );
+
+        res.json({
+            ok: true,
+            uid: usuario.id,
+            name: usuario.name,
++           token
+        });
+
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+        
+    }
+}
+```
+
+
+
+
+---
+## ⭐ 📅 🛢️ 385. Login de usuario
+
+Ahora en el controller tenemos que actualizar la función `loginUsuario` y desencriptar la contraseña para confirmar que es correcta:
+
+```javascript
+const validPassword = bcrypt.compareSync( password, usuario.password );
+```
+Aquí la función completa de `loginUsuario` con el control de estados para:
+- (400) Si no existe el email
+- (400) Si el password es incorrecto
+- (200) Cuando todo está ok
+- (500) Si hay problemas con el servidor
+
+```javascript
+const loginUsuario = async(req, res = response) => {
+    
+    const { email, password } = req.body;
+
+    try {
+        const usuario = await Usuario.findOne({ email }); 
+
+        if( !usuario ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no existe con ese email'
+            });
+        }
+
+        // Confirmar los passwords
+        const validPassword = bcrypt.compareSync( password, usuario.password );
+
+        if( !validPassword ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Password incorrecto'
+            });
+        }
+
+        // TODO: Generar nuestro JWT (Json Web Token)
+
+        res.json({
+            ok: true,
+            uid: usuario.id,
+            name: usuario.name,
+        });
+
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+        
+    }
+}
+```
+
+
+---
+## ⭐ 📅 🛢️ 384. Encriptar la contraseña
+
+Instalamos bcryptjs
+```
+npm install bcryptjs
+```
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs) es una biblioteca de JavaScript que permite cifrar contraseñas de forma segura utilizando el algoritmo bcrypt, proporcionando funciones para crear hashes de contraseñas y verificar si un texto coincide con un hash almacenado.
+
+En el controller, una vez tenemos la información del 'usuario', encriptamos la contraseña con bcrypt antes de salvar los datos en la BBDD:
+```diff
+usuario = new Usuario( req.body );
+
++// Encriptar contraseña
++const salt = bcrypt.genSaltSync();
++usuario.password = bcrypt.hashSync( password, salt );
+
+await usuario.save();
+```
+
+
+---
+## ⭐⭐ 📅 🛢️ 383. Validaciones del usuario
+
+Añadimos `findOne` para mirar si existe un registro con el email que pasamos al crear el usuario dentro de la bbdd.
+
+Si existe, devolvemos el error (`ok: false`) con estatus '400' y con el mensaje de 'Un usuario ya existe con ese correo'
+
+Si NO existe, asignamos a 'usuario' el `req.body` 
+`usuario = new Usuario( req.body );`
+y guardamos
+`await usuario.save();`
+
+```javascript
+
+const crearUsuario = async(req, res = response) => {
+...
+    try {
+
+        let usuario = await Usuario.findOne({ email }); 
+
+        if( usuario ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Un usuario ya existe con ese correo'
+            });
+        }
+
+        usuario = new Usuario( req.body );
+
+        await usuario.save();
+        
+        res.status(201).json({
+            ok: true,
+            uid: usuario.id,
+            name: usuario.name,
+        });
+
+    } catch (error) {
+...
+    }
+
+}
+```
+
+
+---
+## ⭐⭐ 📅 🛢️ 382. Crear un usuario en nuestra Base de Datos
+
+Creamos nuestro primer "modelo" "Usuario" siguiendo la idea que aporta mongoose:
+
+```javascript
+const Cat = mongoose.model('Cat', { name: String });
+```
+Que luego nos permitirá crear y guardar registros de ese modelo:
+```javascript
+const kitty = new Cat({ name: 'Zildjian' });
+kitty.save().then(() => console.log('meow'));
+```
+
+Como es una clase, tiene que ir en mayúscula `Usuario.js`.
+
+Usuario.js:
+```javascript
+const { Schema, model } = require('mongoose');
+
+const UsuarioSchema = Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
+    }
+});
+
+module.exports = model('Usuario', UsuarioSchema);
+```
+
+En el controller, añadimos el modelo:
+```javascript
+const Usuario = require('../models/Usuario');
+```
+
+Y en la función `crearUsuario` creamos el usuario con la información obtenida `req.body` implementándola dentro de nuestro modelo Usuario:
+
+```javascript
+const usuario = new Usuario( req.body );
+```
+Y guardamos esta información:
+```javascript
+await usuario.save();
+```
+
+Ahora `crearUsuario` tiene que ser `async` para esperar a que se guarde el 'usuario'.
+
+Así queda la función `crearUsuario`:
+
+```javascript
+const crearUsuario = async(req, res = response) => {
+
+    // const { name, email, password } = req.body;
+
+    try {
+        const usuario = new Usuario( req.body );
+
+        await usuario.save();
+        
+        res.status(201).json({
+            ok: true,
+            msg: 'registro',
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+
+}
+```
+
+
+---
+## ⭐⭐ 📅 🛢️ 381. Conectar Node a Mongo Atlas
+
+Instalamos Mongoose:
+```
+npm i mongoose
+```
+
+Añadimos a nuestro .env el link de conexión a la BBDD:
+```diff
+PORT=4000
++DB_CNN=mongodb+srv://[USUARIO]:[PASSWORD]@hectoralvaez.sgta2.mongodb.net/[NOMBRE_BBDD]
+```
+> **⚠️¡Importante!** Añadir al final del link de conexión el nombre de la nueva BBDD `[NOMBRE_BBDD]`
+
+Creamos nuestro archivo de configuración en la carpeta 'database':
+```javascript
+const mongoose = require('mongoose');
+
+const dbConnection = async() => {
+    try {
+        await mongoose.connect( process.env.DB_CNN);
+        console.log('DB Online');
+
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error a la hora de iniciar la BD');
+    }
+}
+
+module.exports = {
+    dbConnection
+}
+```
+
+---
+### UPDATE AL CURSO:
+
+> **⚠️ ¡Importante!**   
+> En el curso se añaden las siguientes variables en la conexión a Mongoose `useNewUrlParser`, `useUnifiedTopology` y `useCreateIndex`
+
+```javascript
+await mongoose.connect( process.env.DB_CNN, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useCreateIndex: true
+});
+```
+
+Con esta configuración, la conexión lanza el siguiente error:
+`MongoParseError: option usecreateindex is not supported`
+y no se realiza la conexión a la BBDD.
+
+El error se debe a que la opción `useCreateIndex` ya no es compatible con las versiones más recientes de Mongoose.
+
+Además lanza los siguientes warnings:
+
+```
+(node:95164) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version (Use node --trace-warnings ... to show where the warning was created)
+
+(node:95164) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+```
+
+Las opciones `useNewUrlParser` y `useUnifiedTopology` también están obsoletas en las versiones más recientes del controlador de MongoDB.
+
+Con lo cual, la conexión queda limpia de variables extras:
+
+```javascript
+await mongoose.connect( process.env.DB_CNN);
+```
+---
+
+Hacemos la conexión en index.js
+
+```diff
+const express = require('express');
+require('dotenv').config();
++const { dbConnection } = require('./database/config');
+
+// Crear el servidor de express
+const app = express();
+
++// Base de datos
++dbConnection();
+
+// Directorio público
+app.use( express.static('public') );
+
+// Lectura y parseo del body
+app.use( express.json() );
+
+// Rutas
+app.use('/api/auth', require('./routes/auth') );
+
+// TODO: CRUD: Eventos // get, create, update, delete
+
+// Escuchar peticiones
+app.listen( process.env.PORT, () => {
+    console.log(`Servidor corriendo en puerto ${ process.env.PORT }`);
+});
+```
+
+
+
+
+
+---
+## ⭐⭐⭐⭐ 📅 🛢️ 380. Configuración de base de datos
+- [MongoDB](https://www.mongodb.com/es): Base de datos NoSQL orientada a documentos. En lugar de almacenar datos en tablas y filas como las bases de datos relacionales, MongoDB organiza la información en documentos JSON (o BSON) flexibles, lo que la hace ideal para manejar datos no estructurados o semiestructurados. Es muy escalable y se utiliza comúnmente para aplicaciones web modernas debido a su velocidad y capacidad para manejar grandes volúmenes de datos.
+- [MongoDB - Servicio de base de datos totalmente gestionada](https://www.mongodb.com/es/cloud/atlas/efficiency)
+- [Mongoosejs](https://mongoosejs.com/) Biblioteca de Node.js que proporciona una capa de abstracción para interactuar con MongoDB. Permite definir esquemas y modelos para estructurar y validar los datos de manera más sencilla, ofreciendo una forma más organizada y amigable de trabajar con MongoDB en aplicaciones JavaScript. Además, Mongoose incluye funcionalidades avanzadas como middleware, validaciones y consultas más intuitivas.
+
+En esta clase creamos una nueva conexión a nuestra bbdd (Cluster) en [MongoDB Atlas](https://cloud.mongodb.com) con un nuevo usuario y contraseña que tendrá acceso a esa conexión con permisos `readWriteAnyDatabase@admin`.
+
+También pasamos esa conexión a [MongoDB Compass](https://www.mongodb.com/products/tools/compass).
+
+
+[MongoDB Compass](https://www.mongodb.com/products/tools/compass) es una interfaz gráfica oficial para MongoDB que permite visualizar, explorar y gestionar bases de datos de forma intuitiva. Con Compass, puedes realizar consultas, analizar esquemas, validar datos y optimizar el rendimiento sin necesidad de usar comandos en la línea de terminal. Es ideal para desarrolladores que prefieren herramientas visuales para trabajar con MongoDB.
+
+
+---
+## ⭐⭐⭐ 📅 🚀 379. Custom Middlewares
+
+En esta clase sacamos el manejo de errores del controlador y lo pasamos a nuestro propio middleware `validarCampos`, ya que siempre es el mismo código que repetíamos en cada acción.
+
+Middleware 'validar-campos.js'
+
+```javascript
+const { response } = require('express');
+const { validationResult } = require('express-validator');
+
+const validarCampos = (req, res = response, next) => {
+    // manejo de errores
+    const errors = validationResult( req );
+    if ( !errors.isEmpty() ) {
+        // es importante retornar el error para que no se ejecute el resto del código, ya que si no retornará los dos status 201 y 400
+        return res.status(400).json({
+            ok: false,
+            errors: errors.mapped()
+        });
+    }
+    next();
+}
+
+module.exports = {
+    validarCampos
+}
+```
+
+Una vez creado nuestro middleware, podemos llamarlo como un middleware más en la ruta:
+```diff
+router.post(
+    '/new',
+    [   // middlewares
+        check('name', 'El nombre es obligatorio').not().isEmpty(),
+        check('email', 'El email es obligatorio').isEmail(),
+        check('password', 'El password debe de ser de 6 caracteres').isLength({ min: 6 }),
++       validarCampos
+    ],
+    crearUsuario);
+```
+
+
+---
+## ⭐⭐ 📅 🚀 378. Express Validator
+
+Empezamos instalando Express Validator
+
+```
+npm i express-validator
+```
+[express-validator](https://www.npmjs.com/package/express-validator)
+
+Iniciamos el manejo de errores en el 'controller':
+```javascript
+// manejo de errores
+const errors = validationResult( req );
+if( !errors.isEmpty() ){
+    // es importante retornar el error para que no se ejecute el resto del código, ya que si no retornará los dos status 201 y 400
+    return res.status(400).json({
+        ok: false,
+        errors: errors.mapped()
+    });
+}
+```
+
+En las rutas añadimos los middlewares
+```javascript
+router.post(
+    '/new',
+    [   // middlewares
+        check('name', 'El nombre es obligatorio').not().isEmpty(),
+        check('email', 'El email es obligatorio').isEmail(),
+        check('password', 'El password debe de ser de 6 caracteres').isLength({ min: 6 }),
+    ],
+    crearUsuario);
+```
+
+---
+## ⭐⭐⭐ 📅 🚀 377. Recuperar información de un posteo
+
+Añadimos a nuestro `index.js` el middleware `express.json` que nos va a permitir leer y parsear el body, es decir, lo que envía el usuario al endpoint.
+
+```javascript
+// Lectura y parseo del body
+app.use( express.json() );
+```
+
+En nuestro ejemplo, en Postman enviamos en el Body, como "raw" y en JSON la siguiente información:
+
+```javascript
+{
+    "name": "Héctor",
+    "email": "hector@gmail.com",
+    "password": "123456"
+}
+```
+
+Que desestructuramos de la siguiente manera:
+```javascript
+const { name, email, password } = req.body;
+```
+
+Para poderla llamar en la respuesta:
+
+```javascript
+res.json({
+    ok: true,
+    msg: 'registro',
+    name,
+    email,
+    password
+});
+```
+
+Además, empezamos a trabajar con las validaciones de los campos y los `status` que tiene que devolver el servidor según corresponda:
+[HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes)
+
+```javascript
+if (name.length < 5) {
+    return res.status(400).json({
+        ok: false,
+        msg: 'El nombre debe de ser de 5 letras'
+    });
+}
+```
+
+---
+## ⭐⭐ 📅 🚀 376. Endpoints de remover, crear y login
+
+Definimos las rutas de los endpoints primero en el mismo `routes/auth.js` (v1)
+
+Pero para generar código más limpio, separamos las respuestas en la carpeta 'controllers', en el archivo `auth.js` (v2)
+
+De manera que en el `auth.js` de 'rutes' tenemos esta definición:
+
+```javascript
+router.post('/new', crearUsuario);
+```
+
+Y en el `auth.js` de 'controllers' la respuesta:
+
+```javascript
+const crearUsuario = (req, res = response) => {
+    res.json({
+        ok: true,
+        msg: 'registro'
+    });
+}
+```
+
+
+---
+## 📅 🚀 375. Creando las rutas relacionadas a usuarios
+
+Definimos la primera ruta en `index.js`
+
+```javascript
+// Rutas
+app.use('/api/auth', require('./routes/auth') );
+```
+
+En la carpeta 'routes', creamos el archivo `auth.js`.
+
+El `Router` de 'express' nos permite gestionar las rutas. De momento hemos definido la raiz "/".
+
+```javascript
+const { Router } = require('express');
+const router = Router();
+
+router.get('/', (req, res) => {
+    res.json({
+        ok: true
+    });
+});
+
+module.exports = router;
+```
+
+Para tener acceso a este endpoint usaremos la siguiente url:
+```
+http://localhost:4000/api/auth
+```
+---
+## 📅 🚀 374. Variables de entorno y carpeta pública
+
+Instalamos `dotenv` para poder gestionar las variables de entorno que tenemos en `.env`
+
+```
+npm i dotenv
+```
+[dotenv](https://www.npmjs.com/package/dotenv)
+
+Definimos en `.env` el puerto
+```
+PORT=4000
+```
+
+En index.js definimos las variables de entorno con esta línea:
+```
+require('dotenv').config();
+```
+Ya podemos llamar a las variables de entorno de la siguiente manera: `process.env.PORT`.
+
+Ejemplo:
+```javascript
+app.listen( process.env.PORT, () => {
+    console.log(`Servidor corriendo en puerto ${ process.env.PORT }`);
+});
+```
+
+Además, añadimos al index.js el directorio público, en nuestro caso, la carpeta "public", donde tenemos el index.html y una hoja de estilos:
+
+```javascript
+// Directorio público
+app.use( express.static('public') );
+```
+
+Ahora al abrir en el navegador web nuestro localhost con el puerto 4000, aparece el contenido de index.html.
+
+
+---
+## 📅 🚀 373. Configurando Express
+
+### 🚀 Express
+Instalamos localmente "Express":
+```
+npm i express
+```
+
+[express](https://www.npmjs.com/package/express)
+
+En nuestro `package.json` se añaden las siguientes lineas:
+```diff
++ "dependencies": {
++   "express": "^4.21.2"
++ }
+```
+
+Hacemos la primera configuración de nuestro server en `index.js`
+
+```javascript
+const express = require('express');
+
+// Crear el servidor de express
+const app = express();
+
+// Rutas
+app.get('/', (req, res) => {
+    res.json({
+        ok: true
+    });
+});
+
+// Escuchar peticiones
+app.listen( 4000, () => {
+    console.log(`Servidor corriendo en puerto ${ 4000 }`);
+});
+```
+
+> IMPORTANTE:   
+> No usar el puerto 3000, ya que es el que usaremos en nuestra app de React, así nuestro Backend estará en un puerto distinto al de Front.
+
+A partir de ahora para ver el funcionamiento del server usaremos Postman, no el navegador web.
+
+
+---
+## 📅 🌳 372. Inicio de proyecto - CalendarApp Node Backend
+
+### 🌳 Node
+Arrancamos el proyecto generando el `package.json` con el siguiente comando:
+```
+npm init -y
+```
+
+[npm-init](https://docs.npmjs.com/cli/v9/commands/npm-init)
+
+Instalamos `nodemon` de forma global:
+```
+sudo npm i nodemon -g
+```
+
+[nodemon](https://www.npmjs.com/package/nodemon)
+
+Una vez instalado `nodemon` añadimos los siguientes scripts a nuestro `package.json`
+```diff
+"scripts": {
+-   "test": "echo \"Error: no test specified\" && exit 1"
++   "dev": "nodemon index.js",
++   "start": "node index.js"
+},
+```
+
+Si queremos hacer un watch de `index.js`, arranca el server con `nodemon` (auto restart):
+```
+npm run dev
+```
+
+Arranca el server con node 
+```
+npm start
+```
 
 ---
 ## 📅 🛢️🚀⚛️🌳 370. Temas puntuales de la sección
