@@ -840,6 +840,54 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 410. Creando variables de entorno
+
+Creamos un helper que nos devolverá las variables de entorno:
+```javascript
+export const getEnvVariables = () => {
+
+    import.meta.env;
+
+    return {
+        ...import.meta.env
+    }
+};
+```
+
+Creamos nuestro archivo de variables de entorno `.env` y añadimos `VITE_API_URL`:
+
+```
+VITE_API_URL=https://localhost:4000/api
+```
+> IMPORTANTE:   
+> Estas variables de entorno tienen que empezar por "VITE_" para que las detecte y las pase a la parte de Front.
+
+Cuando imprimimos en cosola las variables:
+
+```javascript
+  console.log(getEnvVariables());
+```
+
+Nos imprime este objeto:
+```json
+{
+    BASE_URL: "/"
+    DEV: true
+    MODE: "development"
+    PROD: false
+    SSR: false
+    VITE_API_URL: "https://localhost:4000/api"
+}
+```
+
+> RECORDATORIO:   
+> No subir al repo las variables de entorno `.env` , se añade al `.gitignore` para evitar que se suba. 
+>
+> En su lugar, creamos un `.env.template` que no sirve de referencia pero sin poner datos comprometedores como conexión a BBDD.
+>
+> A partir de ese archivo cada desarrollador podrá crear su propio `.env` en local.
+
+---
 ## 📅 🌐 409. Continuación de proyecto - Calendar + Backend
 
 Arrancamos los proyectos de Front y Back
