@@ -840,6 +840,62 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 411. AuthSlice
+
+Dentro del 'store', en la carpeta 'auth' creamos nuestro `authSlice` con `createSlice` de Redux Toolkit.
+
+```javascript
+import { createSlice } from '@reduxjs/toolkit';
+
+export const authSlice = createSlice({
+    name: 'auth',
+    initialState: {
+        status: 'checking', // checking | authenticated | not-authenticated
+        user: {},
+        errorMessage: undefined,
+    },
+    reducers: {
+        onChecking: (state, /* action */ ) => {
+            state.status = 'checking';
+            state.user = {};
+            state.errorMessage = undefined;
+        },
+        onLogin: (state, { payload }) => {
+            state.status = 'authenticated';
+            state.user = payload;
+            state.errorMessage = undefined;
+        },
+    }
+});
+
+
+// Action creators are generated for each case reducer function
+export const { onChecking, onLogin } = authSlice.actions;
+```
+Y lo añadimos a nuestro `store.js`
+
+```diff
+import { configureStore } from "@reduxjs/toolkit";
+-import { calendarSlice, uiSlice } from "./";
++import { authSlice, calendarSlice, uiSlice } from "./";
+
+
+export const store = configureStore({
+    reducer: {
++       auth: authSlice.reducer,
+        calendar: calendarSlice.reducer,
+        ui: uiSlice.reducer
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    })
+});
+```
+
+
+
+
+---
 ## 📅 🌐 410. Creando variables de entorno
 
 Creamos un helper que nos devolverá las variables de entorno:
