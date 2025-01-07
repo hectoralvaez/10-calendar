@@ -303,8 +303,21 @@ Este es un proyecto de código abierto. Consulte el repositorio oficial para obt
 - [Mongoosejs](https://mongoosejs.com/) Biblioteca de Node.js que proporciona una capa de abstracción para interactuar con MongoDB. Permite definir esquemas y modelos para estructurar y validar los datos de manera más sencilla, ofreciendo una forma más organizada y amigable de trabajar con MongoDB en aplicaciones JavaScript. Además, Mongoose incluye funcionalidades avanzadas como middleware, validaciones y consultas más intuitivas.
 
 ## PETICIONES HTTP 
-- [Fetch](https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch) Viene en JavaScript
-- [Axios](https://axios-http.com) Fernando lo prefiere a Fetch
+### [Fetch](https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch) (Viene en JavaScript)
+- *Nativo:* Disponible en los navegadores modernos sin necesidad de instalación.
+- *Promesas:* Devuelve promesas, pero no maneja errores HTTP automáticamente.
+- *Configuración:* Requiere configuración manual para cosas como interceptores o serialización.
+- *Compatibilidad:* Puede requerir polyfills en navegadores antiguos.
+
+
+### [Axios](https://axios-http.com) (Fernando lo prefiere a Fetch)
+- *Biblioteca externa:* Necesita instalación (npm install axios).
+- *Manejo automático de errores:* Detecta errores HTTP (status >= 400).
+- *Características avanzadas:* Interceptores, cancelación de solicitudes, transformación de datos automática.
+- *Compatibilidad:* Funciona bien tanto en Node.js como en navegadores.
+
+Conclusión: Usa Fetch si necesitas algo básico y ligero. Usa Axios para tareas más complejas o si buscas comodidad adicional.
+
 
 ## HTTP STATUS CODES
 - [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes) Códigos de tres dígitos que los servidores web envían al navegador o cliente para informar sobre el resultado de una solicitud. Cada código tiene un significado específico y pertenece a una de las siguientes categorías:
@@ -838,6 +851,36 @@ Devuelve `[object Object]`
 
 
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
+
+---
+## 📅 🌐 414. Axios - Configurar cliente para peticiones HTTP
+
+Vamos a usar Axios y no Fetch API ya que maneja mejor los interceptores de las peticiones.
+
+Instalamos axios
+```
+yarn add axios
+```
+
+Creamos `calendarApi.js` en la carpeta "api" con la variable d e entorno `VITE_API_URL`.
+
+```javascript
+
+import axios from 'axios';
+import { getEnvVariables } from '../helpers';
+
+const { VITE_API_URL } = getEnvVariables()
+
+const calendarApi = axios.create({
+    baseURL: 'VITE_API_URL'
+})
+
+// TODO: Configurar interceptores
+
+export default calendarApi;
+```
+
+Actualmente en este proyecto solo tenemos esta api, si hubieran otras, se tendrían que crear archivos para cada uno de los servidores que nos sirvan Endopints.
 
 ---
 ## 📅 🌐 413. useForm - Login y Registro
