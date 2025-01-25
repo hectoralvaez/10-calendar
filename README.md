@@ -853,6 +853,77 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 419. Mantener el estado de la autenticación
+
+En `calendarApi`, añadimos el primer intereceptor en el que gestionaremos el "token" que tenemos en el header:
+
+```javascript
+calendarApi.interceptors.request.use( config => {
+
+    config.headers = {
+        ...config.headers,
+        'x-token': localStorage.getItem('token')
+    }
+
+    return config;
+});
+```
+
+
+En el hook `useAuthStore` añadimos el `checkAuthToken`.
+
+```javascript
+const checkAuthToken = async() => {
+    const token = localStorage.getItem('token');
+    if ( !token ) return dispatch( onLogout('Ha expirado el token, vuelve a logarte.') );
+
+    try {
+        const { data } = await calendarApi.get('/auth/renew');
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('token-init-date', new Date().getTime() );
+        dispatch( onLogin({ name: data.name, uid: data.uid }) );
+    } catch (error) {
+        localStorage.clear();
+        dispatch( onLogout('Ha expirado el token, vuelve a logarte.') );
+    }
+}
+```
+
+
+Para acabar, en `AppRouter` controlamos que el token esté activo para acceder a `CalendarPage` o dejarlo en la `LoginPage`.
+
+
+```javascript
+export const AppRouter = () => {
+
+  const { status, checkAuthToken } = useAuthStore();
+
+  useEffect(() => {
+    checkAuthToken();
+  }, [])
+
+  if ( status === 'checking' ) {
+    return (
+      <h3>Cargando...</h3>
+    )
+  }
+
+  return (
+    <Routes>
+        {
+          (status === 'not-authenticated')
+            ? <Route path="/auth/*" element={ <LoginPage /> } />
+            : <Route path="/*" element={ <CalendarPage /> } />
+        }
+        {/* A esta ruta en principio no tendría que llegar ningún usuario, pero es un "Fail-Safe", una ruta a prueba de fallos */}
+        <Route path="/*" element={ <Navigate to="/auth/login" /> } />
+    </Routes>
+  )
+}
+```
+
+
+---
 ## 📅 🌐 418. Creación de un nuevo usuario
 
 ### TAREA:
