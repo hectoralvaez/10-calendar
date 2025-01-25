@@ -853,6 +853,60 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 415. Realizar login de usuario
+
+En este caso vamos a trabajar sin Thunks ni Redux.
+
+Hacemos nuestro propio hook para controlar el estado del usuario, si está logeado o no.
+
+En la carpeta 'hooks', creamos `useAuthStore.js`:
+
+```javascript
+import { useDispatch, useSelector } from "react-redux"
+import { calendarApi } from "../api";
+
+export const useAuthStore = () => {
+    const { status, user, errorMessage } = useSelector( state => state.auth );
+    const dispatch = useDispatch();
+
+    const startLogin = async({ email, password }) => {
+        console.log({ email, password });
+        try {
+            const resp = await calendarApi.post('/auth', { email, password });
+            console.log({ resp });
+        } catch (error) {
+            console.log({ error });
+        }
+    }
+
+    return {
+        // Propiedades
+        status,
+        user,
+        errorMessage,
+
+        // Métodos
+        startLogin,
+    }
+}
+```
+
+En nuestra página de `LoginPage.jsx` importamos `useAuthStore` y desestructuramos `startLogin`:
+
+```javascript
+const { startLogin } = useAuthStore();
+```
+
+Para a continuación, en la función `loginSubmit` llamar `startLogin`:
+
+```javascript
+const loginSubmit = ( event ) => {
+    event.preventDefault();
+    startLogin({ email: loginEmail, password: loginPassword });
+}   
+```
+
+---
 ## 📅 🌐 414. Axios - Configurar cliente para peticiones HTTP
 
 Vamos a usar Axios y no Fetch API ya que maneja mejor los interceptores de las peticiones.
@@ -865,7 +919,6 @@ yarn add axios
 Creamos `calendarApi.js` en la carpeta "api" con la variable d e entorno `VITE_API_URL`.
 
 ```javascript
-
 import axios from 'axios';
 import { getEnvVariables } from '../helpers';
 
