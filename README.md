@@ -853,6 +853,46 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 416. Despachar acciones respectivas
+
+Dentro de nuestro hook `useAuthStore`, en la función `startLogin`, aplicamos los dispatch de cada uno de los reducers de nuestro store `authSlice`.
+
+También añadimos al local storage un par de variables: `token` y `token-init-date`, que podríamos utilizar para calcular el tiempo que le queda al usuario por ejemplo de validez del toke.
+
+```javascript
+const startLogin = async({ email, password }) => {
+    console.log({ email, password });
+    dispatch( onChecking() );
+    try {
+        const { data } = await calendarApi.post('/auth', { email, password });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('token-init-date', new Date().getTime() );
+        dispatch( onLogin({ name: data.name, uid: data.uid }) );
+
+    } catch (error) {
+        dispatch( onLogout('Credenciales incorrectas') );
+        setTimeout(() => {
+            dispatch( clearErrorMessages() );
+        }, 10);  
+    }
+}
+```
+
+También añadimos en nuestro store `authSlice` dos reducers nuevos:
+
+```javascript
+onLogout: (state, { payload }) => {
+    state.status = 'not-authenticated';
+    state.user = {};
+    state.errorMessage = payload;
+},
+clearErrorMessages: (state) => {
+    state.errorMessage = undefined;
+}
+```
+
+
+---
 ## 📅 🌐 415. Realizar login de usuario
 
 En este caso vamos a trabajar sin Thunks ni Redux.
