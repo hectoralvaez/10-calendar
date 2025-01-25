@@ -853,6 +853,31 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 420. Cambiar el URL después de una autenticación
+
+En `AppRouter`, redirigimos siempre que esté logado a la raiz y si no lo está al login:
+
+```javascript
+<Routes>
+    {
+        (status === 'not-authenticated')
+        ? (
+            <>
+            <Route path="/auth/*" element={ <LoginPage /> } />
+            <Route path="/*" element={ <Navigate to="/auth/login" /> } />
+            </>
+        )
+        : (
+            <>
+            <Route path="/" element={ <CalendarPage /> } />
+            <Route path="/*" element={ <Navigate to="/" /> } />
+            </>
+        )
+    }
+</Routes>
+```
+
+---
 ## 📅 🌐 419. Mantener el estado de la autenticación
 
 En `calendarApi`, añadimos el primer intereceptor en el que gestionaremos el "token" que tenemos en el header:

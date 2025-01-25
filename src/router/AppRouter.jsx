@@ -23,11 +23,19 @@ export const AppRouter = () => {
     <Routes>
         {
           (status === 'not-authenticated')
-            ? <Route path="/auth/*" element={ <LoginPage /> } />
-            : <Route path="/*" element={ <CalendarPage /> } />
+            ? (
+              <>
+                <Route path="/auth/*" element={ <LoginPage /> } />
+                <Route path="/*" element={ <Navigate to="/auth/login" /> } />
+              </>
+            )
+            : (
+              <>
+                <Route path="/" element={ <CalendarPage /> } />
+                <Route path="/*" element={ <Navigate to="/" /> } />
+              </>
+            )
         }
-        {/* A esta ruta en principio no tendría que llegar ningún usuario, pero es un "Fail-Safe", una ruta a prueba de fallos */}
-        <Route path="/*" element={ <Navigate to="/auth/login" /> } />
     </Routes>
   )
 }
