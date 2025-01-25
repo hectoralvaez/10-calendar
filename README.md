@@ -853,6 +853,20 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 417. Mostrar error en la autenticación
+
+Para mostrar el error antes de lmipiar el mensaje, disparamos con `Swal` (`sweetalert2`) el mensaje de error:
+
+```javascript
+    useEffect(() => {
+      if ( errorMessage !== undefined ) {
+        Swal.fire('Error en la autenticación', errorMessage, 'error');
+      }
+    }, [errorMessage])
+```
+
+
+---
 ## 📅 🌐 416. Despachar acciones respectivas
 
 Dentro de nuestro hook `useAuthStore`, en la función `startLogin`, aplicamos los dispatch de cada uno de los reducers de nuestro store `authSlice`.
