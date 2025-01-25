@@ -853,6 +853,15 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 418. Creación de un nuevo usuario
+
+### TAREA:
+
+Añadir `startRegister`.
+
+
+
+---
 ## 📅 🌐 417. Mostrar error en la autenticación
 
 Para mostrar el error antes de lmipiar el mensaje, disparamos con `Swal` (`sweetalert2`) el mensaje de error:
