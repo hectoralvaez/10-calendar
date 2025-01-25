@@ -860,6 +860,45 @@ Devuelve `[object Object]`
 Añadir `startRegister`.
 
 
+Solución:
+
+Estaba todo ok, lo único que no hacía falta trabajar era con `password2`, ya que antes de pasar al `startRegister`, en el mismo `registerSubmit` ya se hace la comporbación de que sean iguales los passwords y de no ser iguales, lanza el mensaje de error y el return que impide llegar a la función `startRegister`.
+
+`registerSubmit` en `LoginPage`:
+
+```javascript
+const registerSubmit = ( event ) => {
+    event.preventDefault();
+    if ( registerPassword !== registerPassword2 ) {
+        Swal.fire('Error en el registro', 'Las contraseñas deben de ser iguales', 'error');
+        return; 
+    }
+    startRegister({ name: registerName, email: registerEmail, password: registerPassword });
+}   
+```
+
+
+`startRegister` en `useAuthStore`:
+
+```javascript
+const startRegister = async({ name, email, password }) => {
+    dispatch( onChecking() );
+    try {
+        const { data } = await calendarApi.post('/auth/new', { name, email, password });
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('token-init-date', new Date().getTime() );
+        dispatch( onLogin({ name: data.name, uid: data.uid }) );
+
+    } catch (error) {
+        dispatch( onLogout( error.response.data?.msg || '--' ) );
+        setTimeout(() => {
+            dispatch( clearErrorMessages() );
+        }, 10);  
+    }
+}
+```
+
+
 
 ---
 ## 📅 🌐 417. Mostrar error en la autenticación

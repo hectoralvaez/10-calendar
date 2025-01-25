@@ -33,8 +33,7 @@ export const LoginPage = () => {
             Swal.fire('Error en el registro', 'Las contraseñas deben de ser iguales', 'error');
             return; 
         }
-        startRegister({ name: registerName, email: registerEmail, password: registerPassword, password2: registerPassword2 });
-        console.log({ registerName, registerEmail, registerPassword, registerPassword2 });
+        startRegister({ name: registerName, email: registerEmail, password: registerPassword });
     }   
 
     useEffect(() => {
