@@ -851,6 +851,14 @@ Devuelve `[object Object]`
 
 # 🏁 Sección 27: 📅 🌐 🛢️🚀⚛️🌳 MERN CRUD - Eventos del calendario
 
+## 📅 🌐 424. Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+- Eventos del calendario + backend
+
+Toda esta sección está enfocada en hacer persistentes nuestros cambios y eventos del calendario utilizando nuestro backend, disparando acciones asíncronas que terminan ejecutando las acciones síncronas que habíamos definido anteriormente.
+
+
 
 
 # 🆕 Sección 27: 📅 🌐 🛢️🚀⚛️🌳 MERN CRUD - Eventos del calendario
