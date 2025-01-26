@@ -851,6 +851,35 @@ Devuelve `[object Object]`
 
 # 🏁 Sección 27: 📅 🌐 🛢️🚀⚛️🌳 MERN CRUD - Eventos del calendario
 
+## 📅 🌐 425. Continuación de proyecto - Calendar CRUD de Eventos
+
+Arrancamos el back "10-calendar-backend"
+```
+npm run dev
+```
+
+
+### Recordatorio:
+
+- En la producción de Back no usaremos "nodemon", se usará "npm start"
+
+```
+"scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+},
+```
+
+- Importante, las variables de entorno que se ignoren. Las variables de entorno estarán en el hosting donde despleguemos el backend
+
+
+
+Arrancamos el front:
+```
+yarn dev
+```
+
+---
 ## 📅 🌐 424. Temas puntuales de la sección
 
 ### ¿Qué veremos en esta sección?
