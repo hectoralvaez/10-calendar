@@ -849,7 +849,6 @@ Devuelve `[object Object]`
 
 <br />
 
-
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
