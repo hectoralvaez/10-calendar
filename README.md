@@ -853,6 +853,47 @@ Devuelve `[object Object]`
 # 🏁 Sección 26: 📅 🌐 🛢️🚀⚛️🌳 MERN - Calendario + Backend
 
 ---
+## 📅 🌐 421. Logout y nombre de usuario
+
+En nuestro `useAuthStore` creamos la función`startLogout`, (aunque no es asíncrona, mantenemos la nomenclatura del resto de funciones, con "start").
+
+```javascript
+const startLogout = () => {
+    localStorage.clear();
+    dispatch( onLogout() );
+}
+```
+
+En el component `NavBar` importamos el hook `useAuthStore` para poder extraer el nombre del usuario y la función `startLogout` para cuando hagamos click en "Salir".
+
+```diff
++import { useAuthStore } from "../../hooks";
+
+export const NavBar = () => {
+
++ const { startLogout, user} = useAuthStore();
+
+  return (
+    <div className="navbar navbar-dark bg-dark mb-4 px-4">
+        <span className="navbar-brand">
+            <i className="fas fa-calendar-alt"></i>
+            &nbsp;
++           { user.name }
+        </span>
+
+        <button 
+          className="btn btn-outline-danger"
++         onClick={ startLogout }>
+            <i className="fas fa-sign-out-alt"></i>
+            &nbsp;
+            <span>Salir</span>
+        </button>
+    </div>
+  )
+}
+```
+
+---
 ## 📅 🌐 420. Cambiar el URL después de una autenticación
 
 En `AppRouter`, redirigimos siempre que esté logado a la raiz y si no lo está al login:
