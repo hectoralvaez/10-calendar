@@ -853,6 +853,69 @@ Devuelve `[object Object]`
 
 ---
 
+## 📅 🌐 428. Cargar los eventos al store
+
+En nuestro store `calendarSlice` ya no necesitamos el `tempEvent`:
+
+```javascript
+const tempEvent = {
+  _id: new Date().getTime(), // Este ID lo recibiremos del backend
+  title: 'Cumpleaños',
+  notes: 'Comprar pastel',
+  start: new Date(),
+  end: addHours( new Date(), 2),
+  bgColor: '#fafafa',
+  user: {
+    _id: '1',
+    name: 'Héctor'
+  }
+}
+```
+
+Que era el que cargábamos en el `initialState`:
+```javascript
+initialState: {
+    events: [
+        tempEvent
+    ],
+    activeEvent: null
+},
+```
+
+Ahora podemos cargar los eventos con `onLoadEvents`. Recorremos todo el array con los eventos que recibimos en el payload y si no existe, lo añadimos con un `push` a los events del `state`.
+
+```javascript
+onLoadEvents: (state, { payload = [] }) => {
+    state.isLoadingEvents = false;
+    // state.events = payload;
+
+    payload.forEach( event => {
+        const exist = state.events.some( dbEvent => dbEvent.id === event.id );
+        if ( !exist ) {
+            state.events.push( event );
+        }
+    });
+}
+```
+
+Ahora solo queda hacer el dispatch del `onLoadEvents` dentro de nuestro hook `startLodingEvents` para que los muestre en el calendario de nuestra aplicación.
+
+```diff
+const startLodingEvents = async() => {
+    try {
+        const { data } = await calendarApi.get('/events');
+        const events = convertEventsToDateEvents( data.events );
++       dispatch( onLoadEvents( events ) );
+
+    } catch (error) {
+        console.log('Error cargando eventos');
+        console.log(error);
+    }
+}
+```
+
+---
+
 ## 📅 🌐 427. Mostrar eventos de la base de datos
 
 Creamos un helper que nos ayudará a convertir la fecha del evento en un formato más amigable con `parseISO` de `date-fns`.
