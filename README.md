@@ -851,6 +851,48 @@ Devuelve `[object Object]`
 
 # 🏁 Sección 27: 📅 🌐 🛢️🚀⚛️🌳 MERN CRUD - Eventos del calendario
 
+---
+
+## 📅 🌐 426. Creando un nuevo Evento en el calendario
+
+En `useCalendarStore` en la función `startSavingEvent` aplicamos los cambios para guardar el evento en la bbdd (siempre que no tengamos el id del evento, que en ese caso lo que estaríamos haciendo es actualizarlo, lo haremos más adelante).
+
+Aplicamos el `id` de la `data` que nos genera la bbdd que obtenemos mediante:
+```javascript
+const { data } = await calendarApi.post('/events/new', calendarEvent );
+```
+
+Quitamos le id que usábamos con el timestamp por el que genera la bbdd
+```diff
+-_id: new Date().getTime() // Este ID lo recibiremos del backend
++id: data.event.id,
+```
+Y añadimos la información del usuario `user`.
+
+```diff
+const startSavingEvent = async( calendarEvent ) => {
+    // TODO: Update event
+    if( calendarEvent._id ){
+        // Actualizamos el evento
+        dispatch( onUpdateEvent( { ...calendarEvent } ) );
+    } else {
+        // Agregamos un nuevo evento
++        const { data } = await calendarApi.post('/events/new', calendarEvent );
+
+        dispatch( onAddNewEvent({ 
+            ...calendarEvent, 
+-           _id: new Date().getTime() // Este ID lo recibiremos del backend
++           id: data.event.id,
++           user
+        }) );
+    }
+}
+```
+
+
+
+---
+
 ## 📅 🌐 425. Continuación de proyecto - Calendar CRUD de Eventos
 
 Arrancamos el back "10-calendar-backend"
@@ -880,6 +922,7 @@ yarn dev
 ```
 
 ---
+
 ## 📅 🌐 424. Temas puntuales de la sección
 
 ### ¿Qué veremos en esta sección?
