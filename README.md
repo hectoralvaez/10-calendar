@@ -853,6 +853,58 @@ Devuelve `[object Object]`
 
 ---
 
+## 📅 🌐 427. Mostrar eventos de la base de datos
+
+Creamos un helper que nos ayudará a convertir la fecha del evento en un formato más amigable con `parseISO` de `date-fns`.
+
+Recorremos todos los eventos con `events.map` y reemplazamos las fechas por la fecha modificada:
+
+```javascript
+import { parseISO } from "date-fns";
+
+export const convertEventsToDateEvents = ( events = [] ) => {
+
+    return events.map( event => {
+
+        event.start = parseISO( event.start );
+        event.end = parseISO( event.end );
+
+        return event;
+    });
+
+}
+```
+
+En el hook `useCalendarStore` añadimos el `startLodingEvents`
+
+Aquí obtenemos el listado de los eventos con 
+```javascript
+const { data } = await calendarApi.get('/events');
+```
+
+Y a continuación aplicamos el helper `convertEventsToDateEvents`
+```javascript
+const events = convertEventsToDateEvents( data.events );
+```
+
+Así queda `startLodingEvents`:
+
+```javascript
+const startLodingEvents = async() => {
+    try {
+        const { data } = await calendarApi.get('/events');
+        const events = convertEventsToDateEvents( data.events );
+        console.log(events)
+
+    } catch (error) {
+        console.log('Error cargando eventos');
+        console.log(error);
+    }
+}
+```
+
+---
+
 ## 📅 🌐 426. Creando un nuevo Evento en el calendario
 
 En `useCalendarStore` en la función `startSavingEvent` aplicamos los cambios para guardar el evento en la bbdd (siempre que no tengamos el id del evento, que en ese caso lo que estaríamos haciendo es actualizarlo, lo haremos más adelante).
