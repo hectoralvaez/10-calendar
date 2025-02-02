@@ -853,6 +853,50 @@ Devuelve `[object Object]`
 
 # 🏁 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Sección 28: Fin el MERN - Desplegarlo a producción
 
+---
+
+## ⭐⭐⭐⭐ 📅 🚄 436. Levantar proyectos localmente
+
+Levantamos el BackEnd (Express) y el FrontEnd (React) de forma local `npm run dev` en los dos casos.   
+
+Actualmente están funcionando de forma independiente en modo de desarrollo.   
+
+Ahora tenemos que probar el modo de producción que es lo que subiremos a Railway (el BackEnd).   
+
+Para eso, ejecutamos en FrontEnd `npm run build` que construye y optimiza nuestra aplicación en la carpeta "dist".   
+
+Esta carpeta contiene index.html y los assets con nuestro código de react.
+
+Copiamos el contenido que hay dentro de "dist" (carpeta assets e index.html) y lo pasamos a la carpeta "public" de BackEnd.
+
+Ahora nuestra aplicación no está correindo en http://localhost:5173/, que es donde se ejecutaba el FrontEnd, ahora tenemos que ejecutarla en http://localhost:4000/, que es donde está corriendo nuestro BackEnd.
+
+
+Actualmente, el problema es que si vas directamente a http://localhost:4000, funciona correctamente redirigiéndote a http://localhost:4000/auth/login, pero si entras directamente a http://localhost:4000/auth/login, da el siguiente error:
+
+```
+Cannot GET /auth/login
+```
+
+Para solventar este problema, tenemos que añadir en el `index.js` de nuestro BackEnd una ruta por defecto que te redireccione a `public/index.html` en caso de que no se cumpla ninguna de las rutas anteriores (como era el caso de "auth/login"):
+
+```diff
+// Rutas
+app.use('/api/auth', require('./routes/auth') );
+app.use('/api/events', require('./routes/events') );
+
++app.use( '*', (req, res) => {
++    res.sendFile( path.join( __dirname, 'public/index.html' ) );
++});
+```
+
+---
+EXTRA:   
+Quitar el mensaje de "token expirado", aparecía queda vez que refrescabas el navegador en "/auth/login" (tanto en build, funcionando desde el BackEnd como en dev funcionando en FrontEnd).
+
+
+---
+
 ## 📅 🚄 435. Temas puntuales de la sección
 
 En esta sección vamos a trabajar desplegando nuevamente nuestro backend, pero esta vez incluiremos nuestro frontend hecho en React.

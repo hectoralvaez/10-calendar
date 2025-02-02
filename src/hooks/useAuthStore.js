@@ -41,7 +41,7 @@ export const useAuthStore = () => {
 
     const checkAuthToken = async() => {
         const token = localStorage.getItem('token');
-        if ( !token ) return dispatch( onLogout('Ha expirado el token, vuelve a logarte.') );
+        if ( !token ) return dispatch( onLogout() );
 
         try {
             const { data } = await calendarApi.get('/auth/renew');
@@ -50,7 +50,7 @@ export const useAuthStore = () => {
             dispatch( onLogin({ name: data.name, uid: data.uid }) );
         } catch (error) {
             localStorage.clear();
-            dispatch( onLogout('Ha expirado el token, vuelve a logarte.') );
+            dispatch( onLogout() );
         }
     }
 
