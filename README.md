@@ -848,10 +848,74 @@ console.log(req.body);
 
 Devuelve `[object Object]`
 
+### Desplegar backend y frontend a la nube
+
+Trabajando en local, MongoDB tiene la ip de mi máquina y puedo trabajar sin problema, pero cuando desplego el proyecto en Railway, me devuelve este error:
+
+```
+Error al conectar a la base de datos: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+```
+
+El problema es que en MongoDB hay que añadir las ips que van a tener acceso al Cluster.   
+
+Se podría añadir 0.0.0.0/0, que permite todas las IPs, pero no es seguro en producción.   
+
+Así que para evitar dar acceso a todas las IP's, hay que añadir la ip de Railway en MongoDB  (cloud.mongodb.com > Network Access > ADD IP ADDRESS)  
+
+La ip de Railway, puede ir cambiando, así que en el BackEnd añado al index.js las siguientes lineas para que me devuelva la ip del proyecto:
+
+```javascript
+fetch("https://api64.ipify.org?format=text")
+  .then((res) => res.text())
+  .then((ip) => console.log("IP del proyecto:", ip))
+  .catch((err) => console.error("Error obteniendo la IP:", err));
+```
+
+Por otra parte, hay que cambiar las variables de entorno para que una vez hagamos el build, la aplicación compilada en la carpeta "dist" que subiremos al BackEnd, apunte a nuestro proyecto en railway.
+
+```diff
+-VITE_API_URL=http://localhost:4000/api
++VITE_API_URL=https://10-calendar-backend.up.railway.app/api
+```
+
+En este caso estamos trabajando en el mismo lugar el Back y el Front, pero se recomienda tenerlo por separado para que sean independientes y puedan escalarse independientemente uno de otro, sin tener que disparar un redeploy del Back por cambios en Front y viceversa.
 
 <br />
 
 # 🏁 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Sección 28: Fin el MERN - Desplegarlo a producción
+---
+
+## ⭐⭐⭐⭐ 📅 🚄 437. Desplegar backend y frontend a la nube
+
+Trabajando en local, MongoDB tiene la ip de mi máquina y puedo trabajar sin problema, pero cuando desplego el proyecto en Railway, me devuelve este error:
+
+```
+Error al conectar a la base de datos: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+```
+
+El problema es que en MongoDB hay que añadir las ips que van a tener acceso al Cluster.   
+
+Se podría añadir 0.0.0.0/0, que permite todas las IPs, pero no es seguro en producción.   
+
+Así que para evitar dar acceso a todas las IP's, hay que añadir la ip de Railway en MongoDB  (cloud.mongodb.com > Network Access > ADD IP ADDRESS)  
+
+La ip de Railway, puede ir cambiando, así que en el BackEnd añado al index.js las siguientes lineas para que me devuelva la ip del proyecto:
+
+```javascript
+fetch("https://api64.ipify.org?format=text")
+  .then((res) => res.text())
+  .then((ip) => console.log("IP del proyecto:", ip))
+  .catch((err) => console.error("Error obteniendo la IP:", err));
+```
+
+Por otra parte, hay que cambiar las variables de entorno para que una vez hagamos el build, la aplicación compilada en la carpeta "dist" que subiremos al BackEnd, apunte a nuestro proyecto en railway.
+
+```diff
+-VITE_API_URL=http://localhost:4000/api
++VITE_API_URL=https://10-calendar-backend.up.railway.app/api
+```
+
+En este caso estamos trabajando en el mismo lugar el Back y el Front, pero se recomienda tenerlo por separado para que sean independientes y puedan escalarse independientemente uno de otro, sin tener que disparar un redeploy del Back por cambios en Front y viceversa.
 
 ---
 
