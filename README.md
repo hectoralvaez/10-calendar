@@ -853,6 +853,36 @@ Devuelve `[object Object]`
 
 ---
 
+## 📅 🌐 430. Cambiar el color de los eventos según usuario
+
+Añadimos una variable que nos dice si el envento es nuestro o no de manera que le pueda cambiar el color en "style".
+
+```diff
+const eventStyleGetter = ( event, start, end, isSelected ) => {
++   const isMyEvent = ( user.uid === event.user._id) || ( user.uid === event.user.uid );
+
+    const  style = {
+-       backgroundColor: isMyEvent,
++       backgroundColor: isMyEvent ? '#0095ff' : '#465660',
+        borderRadius: '0px',
+        opacity: 0.8,
+        color: '#fff'
+    }
+
+    return { style }
+}
+```
+
+Como el backend nos devuelve el id del usuario con "event.user._id" y en el front estamos devolviendo "event.user.uid", tenemos que comprobar que nuestro "user.uid" sea igual a alguno de los dos:
+
+```javascript
+const isMyEvent = ( user.uid === event.user._id) || ( user.uid === event.user.uid );
+```
+
+
+
+---
+
 ## 📅 🌐 429. Actualizar el evento
 
 En esta clase cambiamos las referencias al id de "_id" a "id", ya que ahora haremos referencia a nuestos propios "id".
