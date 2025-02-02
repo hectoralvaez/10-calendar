@@ -853,6 +853,36 @@ Devuelve `[object Object]`
 
 ---
 
+## 📅 🌐 432. Limpiar información del calendario
+
+En nuestro store, en `calendarSlice`, añadimos el reducer `onLogoutCalendar`
+```javascript
+onLogoutCalendar: (state) => {
+    state.isLoadingEvents = true;
+    state.events = [];
+    state.activeEvent = null;
+}
+```
+
+Donde dejamos toda la información de los eventos en el estado inicial.   
+
+Es importante que sea `onLogoutCalendar` ya que estamos usando `onLogout` para vaciar la información de los datos de usuario en nuestro store `authSlice`.
+
+Una vez creado, se pasa al hook `useAuthStore` en `startLogout`.
+
+```diff
+const startLogout = () => {
+    localStorage.clear();
++   dispatch( onLogoutCalendar() );
+    dispatch( onLogout() );
+}
+```
+
+Limpiamos el localStorage y limpiamos los datos del evento y del usuario.
+
+
+---
+
 ## 📅 🌐 431. Eliminar un evento
 
 En nuestro hook `useCalendarStore.js`, completamos la función `startDeletingEvent`
