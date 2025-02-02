@@ -880,9 +880,19 @@ Por otra parte, hay que cambiar las variables de entorno para que una vez hagamo
 
 En este caso estamos trabajando en el mismo lugar el Back y el Front, pero se recomienda tenerlo por separado para que sean independientes y puedan escalarse independientemente uno de otro, sin tener que disparar un redeploy del Back por cambios en Front y viceversa.
 
+
+### GIT
+Para cambiar el último commit:
+
+```
+git commit --amend -m "NUEVO_COMMIT"
+git push --force
+```
+
 <br />
 
 # 🏁 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Sección 28: Fin el MERN - Desplegarlo a producción
+
 ---
 
 ## ⭐⭐⭐⭐ 📅 🚄 437. Desplegar backend y frontend a la nube
