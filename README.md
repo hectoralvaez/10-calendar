@@ -851,6 +851,18 @@ Devuelve `[object Object]`
 
 <br />
 
+# 🏁 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Sección 28: Fin el MERN - Desplegarlo a producción
+
+## 📅 🚄 435. Temas puntuales de la sección
+
+En esta sección vamos a trabajar desplegando nuevamente nuestro backend, pero esta vez incluiremos nuestro frontend hecho en React.
+
+### ¿Qué veremos en esta sección?
+- Build de producción
+- Desplegar cambios a Railway
+- Variables de entorno en React
+- Manejo de todas las rutas desde el backend
+
 # 🆕 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Sección 28: Fin el MERN - Desplegarlo a producción
 
 <br />
