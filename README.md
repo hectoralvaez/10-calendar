@@ -891,11 +891,31 @@ git push --force
 
 <br />
 
+# 🏁 Sección 29: 📅 🧪 🛢️🚀⚛️🌳 Pruebas unitarias y de integración - MERN
+
+## 📅 🧪 440. Temas puntuales de la sección
+### ¿Qué veremos en esta sección?
+- Finalización con las últimas pruebas necesarias
+- Pruebas con Fetch
+- Mocks
+- Simulaciones
+- Mocks parciales
+- Store
+- MockStore
+- Eventos de componentes de terceros
+- Simular acciones
+
+Esta es la sección de pruebas más complicada de todas, pero no imposible, nuevamente el objetivo de la misma es darles a ustedes todo el repertorio de pruebas que podrán necesitar en sus aplicaciones hechas o futuras.
+
+
+
+
+
 # 🆕 Sección 29: 📅 🧪 🛢️🚀⚛️🌳 Pruebas unitarias y de integración - MERN
 
 <br />
 
-# 🏁 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Sección 28: Fin el MERN - Desplegarlo a producción
+# 🏁 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Fin el MERN - Desplegarlo a producción
 
 ---
 
@@ -985,7 +1005,7 @@ En esta sección vamos a trabajar desplegando nuevamente nuestro backend, pero e
 - Variables de entorno en React
 - Manejo de todas las rutas desde el backend
 
-# 🆕 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Sección 28: Fin el MERN - Desplegarlo a producción
+# 🆕 Sección 28: 📅 🚄 🛢️🚀⚛️🌳 Fin el MERN - Desplegarlo a producción
 
 <br />
 
