@@ -851,6 +851,7 @@ Devuelve `[object Object]`
 
 # 🏁 Sección 27: 📅 🌐 🛢️🚀⚛️🌳 MERN CRUD - Eventos del calendario
 
+
 ---
 
 ## 📅 🌐 432. Limpiar información del calendario
