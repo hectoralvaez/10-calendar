@@ -853,9 +853,31 @@ Devuelve `[object Object]`
 
 ---
 
+## 📅 🌐 431. Eliminar un evento
+
+En nuestro hook `useCalendarStore.js`, completamos la función `startDeletingEvent`
+
+> ❗IMPORTANTE   
+> Aquí usamos el `activeEvent`, que lo activamos mediante el "click", no con el "doubleClick", que activamos el evento para editarlo en el popup.
+
+```javascript
+const startDeletingEvent = async() => {
+    try {
+        // Eliminar el evento
+        await calendarApi.delete(`/events/delete/${ activeEvent.id }`);
+        dispatch( onDeleteEvent() );
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al eliminar el evento', error.response.data?.msg, 'error');
+    }
+}
+```
+
+---
+
 ## 📅 🌐 430. Cambiar el color de los eventos según usuario
 
-Añadimos una variable que nos dice si el envento es nuestro o no de manera que le pueda cambiar el color en "style".
+En nuestro `CalendarPage.jsx` añadimos una variable que nos dice si el envento es nuestro o no de manera que le pueda cambiar el color en "style".
 
 ```diff
 const eventStyleGetter = ( event, start, end, isSelected ) => {
@@ -884,6 +906,8 @@ const isMyEvent = ( user.uid === event.user._id) || ( user.uid === event.user.ui
 ---
 
 ## 📅 🌐 429. Actualizar el evento
+
+En nuestro hook `useCalendarStore.js`, completamos la función `startSavingEvent`
 
 En esta clase cambiamos las referencias al id de "_id" a "id", ya que ahora haremos referencia a nuestos propios "id".
 
