@@ -851,6 +851,14 @@ Devuelve `[object Object]`
 
 # 🏁 Sección 27: 📅 🌐 🛢️🚀⚛️🌳 MERN CRUD - Eventos del calendario
 
+EXTRA:   
+En nuestro componente `CalendarModal`, para mostrar el título del evento en caso de que exista:
+
+```diff
+-<h1>Nuevo evento</h1>
++<h1>{formValues.title || "Nuevo evento"}</h1>
+```
+
 
 ---
 

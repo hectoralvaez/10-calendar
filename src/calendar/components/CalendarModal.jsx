@@ -107,7 +107,7 @@ export const CalendarModal = () => {
             overlayClassName="modal-fondo"
             closeTimeoutMS={200}
         >
-            <h1> Nuevo evento </h1>
+            <h1>{formValues.title || "Nuevo evento"}</h1>
             <hr />
             <form className="container" onSubmit={ onSubmit }>
                 <div className="form-group mb-2 d-flex flex-column">
