@@ -853,6 +853,88 @@ Devuelve `[object Object]`
 
 ---
 
+## 📅 🌐 429. Actualizar el evento
+
+En esta clase cambiamos las referencias al id de "_id" a "id", ya que ahora haremos referencia a nuestos propios "id".
+
+Funcionando OK:
+
+```javascript
+const startSavingEvent = async( calendarEvent ) => {
+
+    if( calendarEvent.id ){
+        // Actualizamos el evento
+        const { data } = await calendarApi.put(`/events/update/${ calendarEvent.id }`, calendarEvent );
+        dispatch( onUpdateEvent( { ...calendarEvent, user } ) );
+    } else {
+        // Agregamos un nuevo evento
+        const { data } = await calendarApi.post('/events/new', calendarEvent );
+
+        dispatch( onAddNewEvent({ 
+            ...calendarEvent, 
+            id: data.event.id,
+            user
+        }) );
+    }
+}
+```
+
+Optimización:
+
+```diff
+const startSavingEvent = async( calendarEvent ) => {
+
+    if( calendarEvent.id ){
+        // Actualizamos el evento
++       // Como no vamos a usar la data, podemos liberar ese espacio de memoria ya que no vamos a trabajar con él
+-       const { data } = await calendarApi.put(`/events/update/${ calendarEvent.id }`, calendarEvent );
++       await calendarApi.put(`/events/update/${ calendarEvent.id }`, calendarEvent );
+        dispatch( onUpdateEvent( { ...calendarEvent, user } ) );
+
++       // Si aplicamos aquí el "return", nos ahorramos el siguiente "else"
+
++       return;
+
+-   } else {
+        // Agregamos un nuevo evento
+        const { data } = await calendarApi.post('/events/new', calendarEvent );
+
+        dispatch( onAddNewEvent({ 
+            ...calendarEvent, 
+            id: data.event.id,
+            user
+        }) );
+-   }
+}
+```
+
+Además, añadimos un try/catch para captura el error, quedando la función así:
+```javascript
+const startSavingEvent = async( calendarEvent ) => {
+    try {
+        if( calendarEvent.id ){
+            // Actualizamos el evento
+            await calendarApi.put(`/events/update/${ calendarEvent.id }`, calendarEvent );
+            dispatch( onUpdateEvent( { ...calendarEvent, user } ) );
+            return;
+        }
+        // Agregamos un nuevo evento
+        const { data } = await calendarApi.post('/events/new', calendarEvent );
+
+        dispatch( onAddNewEvent({ 
+            ...calendarEvent, 
+            id: data.event.id,
+            user
+        }) );                
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al guardar el evento', error.response.data?.msg, 'error');
+    }
+}
+```
+
+---
+
 ## 📅 🌐 428. Cargar los eventos al store
 
 En nuestro store `calendarSlice` ya no necesitamos el `tempEvent`:
